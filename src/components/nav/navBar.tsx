@@ -1,6 +1,7 @@
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
+import { Home } from "../../pages/home";
 import { MobileNav } from "./mobileNav";
 import { useOutsideAlterter } from "../../hooks/useOutsideAlerter";
 
@@ -103,7 +104,9 @@ export function NavBar() {
         <Switch>
           <Route path="/resume">Resume</Route>
           <Route path="/minesweeper">Minesweeper</Route>
-          <Route path="/">Ben McLean</Route>
+          <Route path="/">
+            <Home />
+          </Route>
         </Switch>
       </div>
     </Router>
