@@ -1,5 +1,7 @@
 # Ben McLean
 
+This is the source code for my [portfolio](http://BenMcLean981.github.io)!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
