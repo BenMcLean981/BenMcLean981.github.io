@@ -25,10 +25,6 @@ export function NavBar() {
     else menuRef.current?.classList.remove("hidden");
   }, [mobileOpen]);
 
-  function forceOpen() {
-    setMobileOpen(true);
-  }
-
   function forceClose() {
     setMobileOpen(false);
   }
