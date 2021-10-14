@@ -1,50 +1,47 @@
 # Ben McLean
 
-This is the source code for my [portfolio](http://BenMcLean981.github.io)!
+Hi, my name is Ben McLean and this is the source code for my [portfolio website](http://BenMcLean981.github.io)!
 
-# Getting Started with Create React App
+I'm a 4th year student at the University of Ottawa enrolled in a double degree program of Mechanical Engineering and Computing Technology. I hope to acquire a job as a software engineer/developer after graduation.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The purpose of this project is to both tell and show some of my capabilities. You can read about me on my website, play games I wrote, and then read the source code to judge the quality of the work I've done.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+I chose what I believed to be safe technolgoies to use in this project. I wanted to choose technologies that I believed would give me a good starting point for the job market.
 
-### `yarn start`
+### Frontend (React)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I chose React for the frontend, and I have some experience with it in the past. I think component oriented front-end design is a good idea, and would be just as comfortable choosing Vue, svelte or any other front-end framework. I have done some work with pure javascript on a past project which was template rendered, but that does not scale well to a dynamic site.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Backend (None!)
 
-### `yarn test`
+I host my frontend as static files on Github Pages. As such, no back-end is needed. However, I am brainstorming a project which would require a backend.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Testing (React)
 
-### `yarn build`
+I have never tested React before, and I believed this would be a good oportunity to do so. I am using the testing library with Create React App (CRA) and will be aiming to learn how to make good React tests, not necessarily just get high coverage.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### CSS (Tailwind CSS)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I've worked with Bootstrap in the past, I've written my own CSS, and now I've chosen to try Tailwind. I've heard a lot of good things about it, and am looking forward to using it's utility classes here.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Deployment (Github Actions)
 
-### `yarn eject`
+I have made (mostly copied from a blog) a Github Actions CI/CD pipeline that will build, test, and deploy the site to Github pages on any change to the master branch. You can take a look at the `node.js.yml` in the `/.github/workflows` folder.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Project Structure (Next inspired)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+I've worked with Next in the past and appreciated the fine split between pages and components, I've done the same here. Tests will be bundled directly next to components/pages/hooks instead of being placed in their on `__tests__` folder. The reason for this is I dont think building 2 seperate file trees in parallel is sustainable, I've done that in the past and found it difficult.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Running Dev Environment
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+If you want to take a look at my source code, I would recommend cloning this repo and running the development server as follows.
 
-## Learn More
+```
+git clone [url]
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+cd BenMcLean981.github.io
+yarn
+yarn start
+```
