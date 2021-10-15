@@ -26,8 +26,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "test:all": "craco test --all --watchAll=false",
     "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
+    "predeploy": "yarn build && yarn test:all",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
