@@ -9,7 +9,7 @@ import { useOutsideAlterter } from "../../hooks/useOutsideAlerter";
  * Source:
  * https://www.section.io/engineering-education/creating-a-responsive-navigation-bar-using-tailwind-css-and-javascript/
  *
- * Was learning tailwind while making this site
+ * I was learning tailwind while making this site so I referenced a blog
  *
  * @returns
  */
@@ -30,10 +30,6 @@ export function NavBar() {
   }
 
   useOutsideAlterter(navRef, forceClose);
-
-  function handleToggle() {
-    setMobileOpen((open) => !open);
-  }
 
   return (
     <div>
