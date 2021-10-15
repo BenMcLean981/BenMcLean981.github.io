@@ -1,4 +1,4 @@
-import { mergeClasses } from "@utils/mergeClasses";
+import { mergeClasses } from "../../utils/mergeClasses";
 
 interface Props {
   handleToggle: VoidFunction;
