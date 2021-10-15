@@ -1,4 +1,4 @@
-import { Grid, makeGrid } from "./grid";
+import { Grid, GridSize, makeGrid } from "./grid";
 
 import React from "react";
 
@@ -29,14 +29,13 @@ const gridReducer: React.Reducer<Grid, GridAction> = (grid, action) => {
 };
 
 interface Props {
-  rows: number;
-  cols: number;
+  size: GridSize;
 }
 
 export function GridProvider(props: Props) {
   const [state, dispatch] = React.useReducer(
     gridReducer,
-    makeGrid(props.rows, props.cols, 0)
+    makeGrid(props.size, 0)
   );
 
   const value = { state, dispatch };
