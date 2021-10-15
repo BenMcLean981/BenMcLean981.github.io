@@ -39,9 +39,9 @@ I've worked with Next in the past and appreciated the fine split between pages a
 If you want to take a look at my source code, I would recommend cloning this repo and running the development server as follows.
 
 ```
-git clone [url]
+git clone https://github.com/BenMcLean981/ben-mclean-portfolio.git
 
-cd BenMcLean981.github.io
+cd ben-mclean-portfolio
 yarn
 yarn start
 ```
