@@ -36,3 +36,19 @@ export function generateMinePositions(
 
   return positions;
 }
+
+export function getNeighboringPositions(p: Position): Position[] {
+  //generates the 8 neighbors around p
+  const neighbors: Position[] = [
+    { row: p.row - 1, col: p.col - 1 },
+    { row: p.row - 1, col: p.col },
+    { row: p.row - 1, col: p.col + 1 },
+    { row: p.row, col: p.col - 1 },
+    { row: p.row, col: p.col + 1 },
+    { row: p.row + 1, col: p.col - 1 },
+    { row: p.row + 1, col: p.col },
+    { row: p.row + 1, col: p.col + 1 },
+  ];
+
+  return neighbors;
+}

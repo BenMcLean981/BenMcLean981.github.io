@@ -1,4 +1,9 @@
-import { Position, generateRandomPosition, isPositionEqual } from "./position";
+import {
+  Position,
+  generateRandomPosition,
+  getNeighboringPositions,
+  isPositionEqual,
+} from "./position";
 const seedrandom = require("seedrandom");
 
 describe("isPositionEqual", () => {
@@ -74,5 +79,24 @@ describe("generateRandomPositions", () => {
 
     expect(pair.row).toEqual(1);
     expect(pair.col).toEqual(1);
+  });
+});
+
+describe("getPossibleNeighbors", () => {
+  it("generates 8 possible valid positions.", () => {
+    const position = { row: 2, col: 3 };
+    const neighbors = getNeighboringPositions(position);
+
+    expect(neighbors.length).toEqual(8);
+    expect(neighbors).toEqual([
+      { row: 1, col: 2 },
+      { row: 1, col: 3 },
+      { row: 1, col: 4 },
+      { row: 2, col: 2 },
+      { row: 2, col: 4 },
+      { row: 3, col: 2 },
+      { row: 3, col: 3 },
+      { row: 3, col: 4 },
+    ]);
   });
 });
