@@ -1,5 +1,6 @@
-import { Grid, GridSize, makeGrid } from "./grid";
+import { Grid, initializeGrid } from "./grid";
 
+import { GridSize } from "./gridSize";
 import React from "react";
 
 type GridAction =
@@ -9,10 +10,12 @@ type GridAction =
 
 type GridDispatch = (action: GridAction) => void;
 
-const gridContext = React.createContext<{
+type GridContext = {
   state: Grid;
   dispatch: GridDispatch;
-}>(undefined);
+};
+
+const gridContext = React.createContext<GridContext | undefined>(undefined);
 
 const gridReducer: React.Reducer<Grid, GridAction> = (grid, action) => {
   switch (action.type) {
@@ -35,7 +38,7 @@ interface Props {
 export function GridProvider(props: Props) {
   const [state, dispatch] = React.useReducer(
     gridReducer,
-    makeGrid(props.size, 0)
+    initializeGrid(props.size, 0)
   );
 
   const value = { state, dispatch };
