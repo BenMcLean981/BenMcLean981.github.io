@@ -2,8 +2,8 @@ import { GridSize as GridSettings, validateGridSize } from "./gridSize";
 import { MinesweeperTile } from "./tile";
 import { Position } from "./position";
 
-import { makeEmptyArray } from "../../../utils/makeEmptyArray";
-import { notUndefined } from "../../../utils/notUndefined";
+import { makeEmptyArray } from "../../utils/makeEmptyArray";
+import { notUndefined } from "../../utils/notUndefined";
 
 
 const seedrandom = require("seedrandom");
