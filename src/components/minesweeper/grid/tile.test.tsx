@@ -1,23 +1,81 @@
-import { MinesweeperTileButton, makeTile } from "./tile";
+import { MinesweeperTileButton, MinesweeperTile } from "./tile";
 import { render, screen } from "@testing-library/react";
 
-import React from "react";
+import { Position } from "./position";
 
-describe("makeTile", () => {
-  it("Makes a tile from the given row and column", () => {
-    expect(makeTile(2, 3)).toEqual({
-      flagged: false,
-      hidden: true,
-      mined: false,
-      position: { row: 2, col: 3 },
+describe("MinesweeperTile", () => {
+  describe("makeTile", () => {
+    it("Makes a tile from the given row and column", () => {
+      const tile = MinesweeperTile.makeTile(new Position(1, 2));
+      expect(tile.position.row).toBe(1);
+      expect(tile.position.col).toBe(2);
+
+      expect(tile.flags.mined).toBe(false);
+      expect(tile.flags.flagged).toBe(false);
+      expect(tile.flags.hidden).toBe(true);
+
+      expect(tile.nAdjMines).toBeUndefined();
     });
   });
-});
+
+  describe("mine.", () => {
+    it("Mines the tile", () => {
+      const tile = MinesweeperTile.makeTile(new Position(1, 2));
+      expect(tile.flags.mined).toBe(false);
+
+      const mined = tile.mine();
+      expect(mined).not.toBe(tile);
+      expect(mined.flags.mined).toBe(true);
+
+      const toggle = tile.mine();
+      expect(toggle.flags.mined).toBe(true);
+    });
+  })
+
+  describe("reveal.", () => {
+    it("Reaveals the tile", () => {
+      const tile = MinesweeperTile.makeTile(new Position(1, 2));
+      expect(tile.flags.hidden).toBe(true);
+
+      const revealed = tile.reveal();
+      expect(revealed).not.toBe(tile);
+      expect(revealed.flags.hidden).toBe(false);
+
+      const toggle = tile.reveal();
+      expect(toggle.flags.hidden).toBe(false);
+    });
+  })
+
+  describe("toggleFlag", () => {
+    it("toggles the flag attribute.", () => {
+      const tile = MinesweeperTile.makeTile(new Position(1, 2));
+      expect(tile.flags.flagged).toBe(false);
+
+      const flagged = tile.toggleFlag();
+      expect(flagged).not.toBe(tile);
+      expect(flagged.flags.flagged).toBe(true);
+
+      const unflagged = flagged.toggleFlag();
+      expect(unflagged.flags.flagged).toBe(false);
+    })
+  })
+
+  describe("copy.", () => {
+    it("Returns a copy of the tile.", () => {
+      const tile = MinesweeperTile.makeTile(new Position(1, 2));
+      const copy = tile.copy();
+      expect(copy).not.toBe(tile);
+      expect(copy.position).not.toBe(tile.position);
+      expect(copy.flags).not.toBe(tile.flags);
+      expect(copy.nAdjMines).toBe(tile.nAdjMines);
+    })
+  })
+})
 
 
 describe("TileComponent", () => {
   it("renders a hidden cell.", () => {
-    const tile = makeTile(2, 3);
+    const tile = MinesweeperTile.makeTile(new Position(2, 3));
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
@@ -25,9 +83,7 @@ describe("TileComponent", () => {
   });
 
   it("renders a mined shown cell.", () => {
-    const tile = makeTile(2, 3);
-    tile.hidden = false;
-    tile.mined = true;
+    const tile = MinesweeperTile.makeTile(new Position(2, 3)).mine().reveal();
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
@@ -35,9 +91,7 @@ describe("TileComponent", () => {
   });
 
   it("renders a mined hidden cell.", () => {
-    const tile = makeTile(2, 3);
-    tile.hidden = true;
-    tile.mined = true;
+    const tile = MinesweeperTile.makeTile(new Position(2, 3)).mine();
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
@@ -45,9 +99,9 @@ describe("TileComponent", () => {
   });
 
   it("renders a flagged shown cell.", () => {
-    const tile = makeTile(2, 3);
-    tile.hidden = false;
-    tile.flagged = true;
+    const tile = MinesweeperTile.makeTile(new Position(2, 3)).toggleFlag().reveal();
+
+    expect(tile.flags.flagged).toBe(true);
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
@@ -55,9 +109,9 @@ describe("TileComponent", () => {
   })
 
   it("renders a flagged hidden cell.", () => {
-    const tile = makeTile(2, 3);
-    tile.hidden = true;
-    tile.flagged = true;
+    const tile = MinesweeperTile.makeTile(new Position(2, 3)).toggleFlag();
+
+    expect(tile.flags.flagged).toBe(true);
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
@@ -65,9 +119,7 @@ describe("TileComponent", () => {
   })
 
   it("renders a shown numbered cell.", () => {
-    const tile = makeTile(2, 3);
-    tile.hidden = false;
-    tile.number = 1;
+    const tile = MinesweeperTile.makeTile(new Position(2, 3)).applyNumber(1).reveal();
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
@@ -75,9 +127,7 @@ describe("TileComponent", () => {
   })
 
   it("renders a hidden numbered cell.", () => {
-    const tile = makeTile(2, 3);
-    tile.hidden = true;
-    tile.number = 1;
+    const tile = MinesweeperTile.makeTile(new Position(2, 3)).applyNumber(1);
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();

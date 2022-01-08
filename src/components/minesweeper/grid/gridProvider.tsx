@@ -1,4 +1,4 @@
-import { MinesweeperGrid, initializeGrid, revealTile, toggleFlagTile, revealGrid } from "./grid";
+import { MinesweeperGrid } from "./grid";
 
 import { GridSize } from "./gridSize";
 import React from "react";
@@ -25,18 +25,12 @@ export const gridReducer: React.Reducer<MinesweeperGrid, GridAction> = (
   action
 ) => {
   switch (action.type) {
-    case "revealTile": {
-      revealTile(grid, action.pos);
-      return grid;
-    }
-    case "toggleFlagTile": {
-      toggleFlagTile(grid, action.pos);
-      return grid;
-    }
-    case "revealGrid": {
-      revealGrid(grid);
-      return grid;
-    }
+    case "revealTile":
+      return grid.reveal(action.pos)
+    case "toggleFlagTile":
+      return grid.toggleFlag(action.pos);
+    case "revealGrid":
+      return grid.revealAll();
   }
 };
 

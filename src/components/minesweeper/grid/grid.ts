@@ -1,119 +1,137 @@
-import { GridSize, validateGridSize } from "./gridSize";
-import { MinesweeperTile, copyTile, makeTile } from "./tile";
-import {
-  Position,
-  generateMinePositions,
-  getNeighboringPositions,
-} from "./position";
+import { GridSize as GridSettings, validateGridSize } from "./gridSize";
+import { MinesweeperTile } from "./tile";
+import { Position } from "./position";
 
 import { makeEmptyArray } from "../../../utils/makeEmptyArray";
 import { notUndefined } from "../../../utils/notUndefined";
 
-export interface MinesweeperGrid {
+
+const seedrandom = require("seedrandom");
+
+
+
+export class MinesweeperGrid {
   rows: MinesweeperTile[][];
-  size: GridSize;
-}
+  size: GridSettings;
 
-export function makeGridTiles(size: GridSize): MinesweeperTile[][] {
-  function makeRow(rowIdx: number): Array<MinesweeperTile> {
-    return makeEmptyArray(size.cols).map(
-      (_, colIdx) => makeTile(rowIdx + 1, colIdx + 1) //exclude zero which might be confusing
-    );
+  constructor(rows: MinesweeperTile[][], size: GridSettings) {
+    this.rows = rows;
+    this.size = size;
   }
 
-  return makeEmptyArray(size.rows).map((_, rowIdx) => makeRow(rowIdx));
-}
+  static make(settings: GridSettings): MinesweeperGrid {
+    const grid = MinesweeperGrid.init(settings);
+    return grid.mine();
+  }
 
-export function mineGrid(
-  grid: MinesweeperGrid,
-  seed?: number
-): MinesweeperGrid {
-  const positions = generateMinePositions(grid.size, seed);
-  return positions.reduce((grid, pos) => minePosition(grid, pos), grid);
-}
+  static init(settings: GridSettings): MinesweeperGrid {
+    const rows = makeEmptyArray(settings.rows).map((_, row) =>
+      makeEmptyArray(settings.cols).map((_, col) => MinesweeperTile.makeTile(new Position(row + 1, col + 1))));
+    return new MinesweeperGrid(rows, settings);
+  }
 
-export function numberGrid(grid: MinesweeperGrid): MinesweeperGrid {
-  const numberedTiles = grid.rows.map((row) =>
-    row.map((tile) => {
-      if (tile.mined)
-        return copyTile(tile);
+  generateMinePositions(
+    seed?: number
+  ): Position[] {
+    const prng = new seedrandom(seed);
+    const positions: Position[] = [];
+
+    for (let i = 0; i < this.size.mines; i++) {
+      positions.push(Position.makeRandomUnique(this.size, positions, prng));
+    }
+
+    return positions;
+  }
+
+  mine(seed?: number): MinesweeperGrid {
+    const positions = this.generateMinePositions(seed);
+    return this.minePositions(positions);
+  }
+
+  minePosition(p: Position): MinesweeperGrid {
+    const minedRows: MinesweeperTile[][] = this.rows.map((row) => row.map(tile => {
+      if (tile.position.equals(p))
+        return tile.mine();
+      else return tile.copy();
+    }));
+
+    return new MinesweeperGrid(minedRows, this.size);
+  }
+
+  minePositions(positions: Position[]): MinesweeperGrid {
+    const minedRows: MinesweeperTile[][] = this.rows.map((row) => row.map(tile => {
+      if (positions.some(p => p.equals(tile.position)))
+        return tile.mine();
+      else return tile.copy();
+    }));
+
+    return new MinesweeperGrid(minedRows, this.size);
+  }
+
+  countNeighboringMines(p: Position): number {
+    const neighbors = this.getNeighbors(p);
+    const minedNeighbors = neighbors.filter(n => n.flags.mined);
+    return minedNeighbors.reduce((count, neighbor) => {
+      if (neighbor.flags.mined)
+        return count + 1
+      else return count;
+    }, 0);
+  }
+
+  applyNumbering(): MinesweeperGrid {
+    const numberedRows = this.rows.map((row) => row.map(tile => {
+      if (tile.flags.mined)
+        return tile.copy();
       else
-        return {
-          ...tile,
-          number: countNeighboringMines(grid, tile.position),
-        }
-    })
-  );
+        return tile.applyNumber(this.countNeighboringMines(tile.position));
+    }));
 
-  return {
-    ...grid,
-    rows: numberedTiles,
+    return new MinesweeperGrid(numberedRows, this.size);
   }
-}
 
-export function initializeGrid(size: GridSize, seed?: number): MinesweeperGrid {
-  if (!validateGridSize(size))
-    throw new Error("Number of mines too large, exceeds number of tiles.");
+  getTile(p: Position): MinesweeperTile | undefined {
+    if (
+      p.row > this.size.rows ||
+      p.col > this.size.cols ||
+      p.row < 1 ||
+      p.col < 1
+    )
+      return undefined;
+    else return this.rows[p.row - 1][p.col - 1].copy();
+  }
 
-  return {
-    rows: makeGridTiles(size),
-    size,
-  };
-}
+  getNeighbors(p: Position): MinesweeperTile[] {
+    const neighbors = p.getNeighboringPositions().map(n => this.getTile(n));
+    return neighbors.filter(notUndefined);
+  }
 
-export function makeGrid(size: GridSize, seed?: number): MinesweeperGrid {
-  const grid = initializeGrid(size, seed);
-  return mineGrid(grid, seed);
-}
+  copy(): MinesweeperGrid {
+    const rows = this.rows.map((row) => row.map(tile => tile.copy()));
+    return new MinesweeperGrid(rows, this.size);
+  }
 
-export function minePosition(
-  grid: MinesweeperGrid,
-  position: Position
-): MinesweeperGrid {
-  const tiles = grid.rows.map((row) => row.map(copyTile));
-  tiles[position.row - 1][position.col - 1].mined = true;
+  reveal(p: Position): MinesweeperGrid {
+    const revealedRows = this.rows.map((row) => row.map(tile => {
+      if (tile.position.equals(p))
+        return tile.reveal();
+      else return tile.copy();
+    }));
 
-  return { ...grid, rows: tiles };
-}
+    return new MinesweeperGrid(revealedRows, this.size);
+  }
 
-export function getTile(
-  grid: MinesweeperGrid,
-  p: Position
-): MinesweeperTile | undefined {
-  if (
-    p.row > grid.size.rows ||
-    p.col > grid.size.cols ||
-    p.row < 1 ||
-    p.col < 1
-  )
-    return undefined;
-  else return grid.rows[p.row - 1][p.col - 1];
-}
+  toggleFlag(p: Position): MinesweeperGrid {
+    const flaggedRows = this.rows.map((row) => row.map(tile => {
+      if (tile.position.equals(p))
+        return tile.toggleFlag();
+      else return tile.copy();
+    }));
 
-export function getNeighbors(
-  grid: MinesweeperGrid,
-  pos: Position
-): MinesweeperTile[] {
-  const neighbors = getNeighboringPositions(pos);
-  return neighbors.map((p) => getTile(grid, p)).filter(notUndefined);
-}
+    return new MinesweeperGrid(flaggedRows, this.size);
+  }
 
-export function countNeighboringMines(grid: MinesweeperGrid, pos: Position): number {
-  return getNeighbors(grid, pos).filter((t) => t.mined).length;
-}
-
-export function revealTile(grid: MinesweeperGrid, pos: Position): void {
-  const tile = getTile(grid, pos) as MinesweeperTile;
-  tile.hidden = false;
-}
-
-export function toggleFlagTile(grid: MinesweeperGrid, pos: Position): void {
-  const tile = getTile(grid, pos) as MinesweeperTile;
-  tile.flagged = !tile.flagged;
-}
-
-export function revealGrid(grid: MinesweeperGrid): void {
-  grid.rows.forEach((row) =>
-    row.forEach((tile) => tile.hidden = false)
-  );
+  revealAll(): MinesweeperGrid {
+    const revealedRows = this.rows.map((row) => row.map(tile => tile.reveal()));
+    return new MinesweeperGrid(revealedRows, this.size);
+  }
 }

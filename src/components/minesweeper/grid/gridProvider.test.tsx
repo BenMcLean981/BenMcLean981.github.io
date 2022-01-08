@@ -1,30 +1,30 @@
-import { getTile, makeGrid } from './grid';
+import { MinesweeperGrid } from './grid';
 import { gridReducer } from './gridProvider';
 import { Position } from './position';
 
 describe("gridReducer", () => {
     it("Reveals tile correctly.", () => {
-        const grid = makeGrid({ rows: 3, cols: 2, mines: 3 });
+        const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
 
-        const pos: Position = { row: 2, col: 1 };
+        const pos = new Position(2, 1);
         const nextGrid = gridReducer(grid, { type: "revealTile", pos });
-        expect(getTile(nextGrid, pos)?.hidden).toBe(false);
-        expect(getTile(nextGrid, { row: pos.row, col: pos.col + 1 })?.hidden).toBe(true);
+        expect(nextGrid.getTile(pos)?.flags.hidden).toBe(false);
+        expect(nextGrid.getTile(new Position(pos.row, pos.col + 1))?.flags.hidden).toBe(true);
     })
 
     it("Flags tile correctly.", () => {
-        const grid = makeGrid({ rows: 3, cols: 2, mines: 3 });
+        const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
 
-        const pos: Position = { row: 2, col: 1 };
+        const pos = new Position(2, 1);
         const nextGrid = gridReducer(grid, { type: "toggleFlagTile", pos });
-        expect(getTile(nextGrid, pos)?.flagged).toBe(true);
-        expect(getTile(nextGrid, { row: pos.row, col: pos.col + 1 })?.flagged).toBe(false);
+        expect(nextGrid.getTile(pos)?.flags.flagged).toBe(true);
+        expect(nextGrid.getTile(new Position(pos.row, pos.col + 1))?.flags.flagged).toBe(false);
     })
 
     it("reveals grid correctly.", () => {
-        const grid = makeGrid({ rows: 3, cols: 2, mines: 3 });
+        const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
 
         const nextGrid = gridReducer(grid, { type: "revealGrid" });
-        expect(nextGrid.rows.every(row => row.every(tile => tile.hidden === false))).toBe(true);
+        expect(nextGrid.rows.every(row => row.every(tile => !tile.flags.hidden))).toBe(true);
     })
 })
