@@ -36,15 +36,15 @@ export interface TileProps {
 }
 
 export function MinesweeperTileButton(props: TileProps) {
-  const grid = useContext(minesweeperGridContext);
+  const tile = props.tile
 
-  if (props.tile.hidden) {
+  if (tile.hidden) {
     return <button></button>;
-  } else if (props.tile.flagged) {
+  } else if (tile.flagged && !tile.hidden) {
     return <button>F</button>;
-  } else if (props.tile.mined && !props.tile.hidden) {
+  } else if (tile.mined && !tile.hidden) {
     return <button>X</button>;
   } else {
-    return <button />;
-  }
+    return <button>{tile.number}</button>;
+  };
 }

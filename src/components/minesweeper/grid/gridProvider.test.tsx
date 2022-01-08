@@ -20,4 +20,11 @@ describe("gridReducer", () => {
         expect(getTile(nextGrid, pos)?.flagged).toBe(true);
         expect(getTile(nextGrid, { row: pos.row, col: pos.col + 1 })?.flagged).toBe(false);
     })
+
+    it("reveals grid correctly.", () => {
+        const grid = makeGrid({ rows: 3, cols: 2, mines: 3 });
+
+        const nextGrid = gridReducer(grid, { type: "revealGrid" });
+        expect(nextGrid.rows.every(row => row.every(tile => tile.hidden === false))).toBe(true);
+    })
 })
