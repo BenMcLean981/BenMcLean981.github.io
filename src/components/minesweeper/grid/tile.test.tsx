@@ -15,8 +15,11 @@ describe("makeTile", () => {
 });
 
 describe("TileComponent", () => {
-  it("renders a div", () => {
-    render(<MinesweeperTileButton tile={makeTile(2, 3)} />);
+  it("renders a basic cell", () => {
+    const tile = makeTile(2, 3);
+
+    render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
+    expect(screen.getByRole("button")).toHaveTextContent("");
   });
 });
