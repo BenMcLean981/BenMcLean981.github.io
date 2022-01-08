@@ -20,7 +20,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Install NPM packages via yarn
         run: yarn
@@ -29,7 +29,7 @@ jobs:
         run: yarn run build
 
       - name: Run tests
-        run: yarn run test:all
+        run: yarn run test:coverage
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
