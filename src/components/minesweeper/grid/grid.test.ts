@@ -125,9 +125,18 @@ describe("countNeighboringMines", () => {
 
   it("Returns correct number of mines.", () => {
     const grid = initializeGrid({ rows: 3, cols: 2, mines: 3 });
-    const mined = mineGrid(grid);
 
-    expect(countNeighboringMines(mined, { row: 2, col: 1 })).toBe(3);
+    const m1 = getTile(grid, { row: 2, col: 2 }) as MinesweeperTile;
+    m1.mined = true;
+
+    const m2 = getTile(grid, { row: 1, col: 2 }) as MinesweeperTile;
+    m2.mined = true;
+
+    const m3 = getTile(grid, { row: 3, col: 2 }) as MinesweeperTile;
+    m3.mined = true;
+
+
+    expect(countNeighboringMines(grid, { row: 2, col: 1 })).toBe(3);
   })
 })
 
