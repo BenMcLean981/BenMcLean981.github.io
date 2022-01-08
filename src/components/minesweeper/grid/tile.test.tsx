@@ -14,6 +14,7 @@ describe("makeTile", () => {
   });
 });
 
+
 describe("TileComponent", () => {
   it("renders a basic cell", () => {
     const tile = makeTile(2, 3);

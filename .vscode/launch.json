@@ -17,8 +17,9 @@
       "name": "Run All Tests",
       "runtimeExecutable": "yarn",
       "cwd": "${workspaceFolder}",
-      "runtimeArgs": ["test:all"],
-      "port": 5858
+      "args": [
+        "test:all"
+      ],
     }
   ]
 }

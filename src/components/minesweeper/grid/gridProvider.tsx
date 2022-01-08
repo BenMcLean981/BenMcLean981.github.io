@@ -1,12 +1,13 @@
-import { MinesweeperGrid, initializeGrid } from "./grid";
+import { MinesweeperGrid, initializeGrid, revealTile, toggleFlagTile, revealGrid } from "./grid";
 
 import { GridSize } from "./gridSize";
 import React from "react";
+import { Position } from "./position";
 
 type GridAction =
-  | { type: "revealTile"; row: number; col: number }
-  | { type: "flagTile"; row: number; col: number }
-  | { type: "revealBoard" };
+  | { type: "revealTile"; pos: Position }
+  | { type: "toggleFlagTile"; pos: Position }
+  | { type: "revealGrid" };
 
 type GridDispatch = (action: GridAction) => void;
 
@@ -19,28 +20,31 @@ export const minesweeperGridContext = React.createContext<
   GridContext | undefined
 >(undefined);
 
-const gridReducer: React.Reducer<MinesweeperGrid, GridAction> = (
+export const gridReducer: React.Reducer<MinesweeperGrid, GridAction> = (
   grid,
   action
 ) => {
   switch (action.type) {
     case "revealTile": {
+      revealTile(grid, action.pos);
       return grid;
     }
-    case "flagTile": {
+    case "toggleFlagTile": {
+      toggleFlagTile(grid, action.pos);
       return grid;
     }
-    case "revealBoard": {
+    case "revealGrid": {
+      revealGrid(grid);
       return grid;
     }
   }
 };
 
-interface Props {
+export interface GridProviderProps {
   size: GridSize;
 }
 
-export function MinesweeperGridProvider(props: Props) {
+export function MinesweeperGridProvider(props: GridProviderProps) {
   const [state, dispatch] = React.useReducer(
     gridReducer,
     initializeGrid(props.size, 0)

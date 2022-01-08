@@ -11,6 +11,7 @@ export interface MinesweeperTile {
   hidden: boolean;
   mined: boolean;
   flagged: boolean;
+  number?: number;
 }
 export function makeTile(row: number, col: number): MinesweeperTile {
   return {

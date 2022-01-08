@@ -28,6 +28,7 @@
     "build": "craco build",
     "test": "craco test",
     "test:all": "craco test --all --watchAll=false",
+    "test:coverage": "craco test --all --watchAll=false --coverage || exit 0",
     "eject": "react-scripts eject",
     "predeploy": "yarn build && yarn test:all",
     "deploy": "gh-pages -d build"
@@ -55,5 +56,18 @@
     "@types/seedrandom": "^3.0.1",
     "autoprefixer": "^9",
     "postcss": "^7"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/components/**/*.{js,jsx,ts,tsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
   }
 }
