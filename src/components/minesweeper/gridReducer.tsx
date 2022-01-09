@@ -1,10 +1,12 @@
+import { GridSettings } from "./gridSettings";
 import { MinesweeperGrid } from "./grid";
 import { MinesweeperTile } from "./tile";
 import React from "react";
 
 type GridAction =
   | { type: "REVEAL"; tile: MinesweeperTile }
-  | { type: "FLAG"; tile: MinesweeperTile };
+  | { type: "FLAG"; tile: MinesweeperTile }
+  | { type: "RESET"; settings: GridSettings };
 
 type GridDispatch = (action: GridAction) => void;
 
@@ -27,5 +29,7 @@ export const gridReducer: React.Reducer<MinesweeperGrid, GridAction> = (
       else return grid.reveal(action.tile.position);
     case "FLAG":
       return grid.toggleFlag(action.tile.position);
+    case "RESET":
+      return MinesweeperGrid.make(grid.size);
   }
 };

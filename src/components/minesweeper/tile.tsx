@@ -63,6 +63,7 @@ export class MinesweeperTile {
 
 export interface TileProps {
   tile: MinesweeperTile;
+  gameOver?: boolean;
   handleFlag?: (tile: MinesweeperTile) => void;
   handleReveal?: (tile: MinesweeperTile) => void;
 }
@@ -71,17 +72,18 @@ export function MinesweeperTileButton(props: TileProps) {
   const tile = props.tile;
 
   function getText(): string {
+    if (tile.flags.flagged && tile.flags.mined && props.gameOver) return "❌";
     if (tile.flags.flagged) return "🚩";
     else if (tile.flags.mined && !tile.flags.hidden) return "💣";
     else if (tile.nAdjMines === undefined) return "";
-    else if (tile.flags.hidden && tile.nAdjMines === 0) return "";
-    else if (tile.flags.hidden === false) return tile.nAdjMines.toString();
+    else if (!tile.flags.hidden && tile.nAdjMines === 0) return "";
+    else if (!tile.flags.hidden) return tile.nAdjMines.toString();
     else return "";
   }
 
   function getBackgroundClass(): string {
     if (tile.flags.hidden) return "bg-slate-700";
-    else if (tile.flags.mined) return "bg-red-600";
+    else if (tile.flags.mined && !tile.flags.flagged) return "bg-red-600";
     else return "bg-slate-500";
   }
 
@@ -115,6 +117,7 @@ export function MinesweeperTileButton(props: TileProps) {
       className={`${baseClass} ${getBackgroundClass()} ${getTextColorClass()}`}
       onClick={handleLeftClick}
       onContextMenu={handleRightClick}
+      disabled={props.gameOver}
     >
       {getText()}
     </button>

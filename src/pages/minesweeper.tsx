@@ -4,6 +4,7 @@ import {
 } from "components/minesweeper/tile";
 import React, { useReducer } from "react";
 
+import { GameBanner } from "../components/minesweeper/gameBanner";
 import { GridSettings } from "../components/minesweeper/gridSettings";
 import { Layout } from "components/layout";
 import { MinesweeperGrid } from "../components/minesweeper/grid";
@@ -37,23 +38,32 @@ export function Minesweeper() {
     gridTemplateColumns: `repeat(${grid.size.cols}, minmax(0, 1fr))`,
   };
 
+  const gridComponent = (
+    <div className="grid gap-1" style={gridStyle}>
+      {grid
+        .getCols()
+        .flat()
+        .map((tile) => (
+          <MinesweeperTileButton
+            tile={tile}
+            key={`${tile.position.row},${tile.position.col}`}
+            handleFlag={handleFlag}
+            handleReveal={handleReveal}
+            gameOver={grid.isGameOver()}
+          />
+        ))}
+    </div>
+  );
   return (
     <Layout>
-      <div
-        className={`grid gap-1 mx-auto sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12 mt-4`}
-        style={gridStyle}
-      >
-        {grid
-          .getCols()
-          .flat()
-          .map((tile) => (
-            <MinesweeperTileButton
-              tile={tile}
-              key={`${tile.position.row},${tile.position.col}`}
-              handleFlag={handleFlag}
-              handleReveal={handleReveal}
-            />
-          ))}
+      <div className="mx-auto sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12 mt-4">
+        <GameBanner
+          grid={grid}
+          onReset={() =>
+            dispatch({ type: "RESET", settings: INTERMEDIATE_SETTINGS })
+          }
+        />
+        {gridComponent}
       </div>
     </Layout>
   );
