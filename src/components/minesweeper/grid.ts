@@ -1,7 +1,6 @@
 import { GridSettings } from "./gridSettings";
 import { MinesweeperTile } from "./tile";
 import { Position } from "./position";
-
 import { makeEmptyArray } from "../../utils/makeEmptyArray";
 import { notUndefined } from "../../utils/notUndefined";
 
@@ -23,13 +22,14 @@ export class MinesweeperGrid {
 
   static init(settings: GridSettings): MinesweeperGrid {
     const rows = makeEmptyArray(settings.rows).map((_, row) =>
-      makeEmptyArray(settings.cols).map((_, col) => MinesweeperTile.makeTile(new Position(row + 1, col + 1))));
+      makeEmptyArray(settings.cols).map((_, col) =>
+        MinesweeperTile.makeTile(new Position(row + 1, col + 1))
+      )
+    );
     return new MinesweeperGrid(rows, settings);
   }
 
-  generateMinePositions(
-    seed?: number
-  ): Position[] {
+  generateMinePositions(seed?: number): Position[] {
     const prng = new seedrandom(seed);
     const positions: Position[] = [];
 
@@ -46,42 +46,43 @@ export class MinesweeperGrid {
   }
 
   minePosition(p: Position): MinesweeperGrid {
-    const minedRows: MinesweeperTile[][] = this.rows.map((row) => row.map(tile => {
-      if (tile.position.equals(p))
-        return tile.mine();
-      else return tile.copy();
-    }));
+    const minedRows: MinesweeperTile[][] = this.rows.map((row) =>
+      row.map((tile) => {
+        if (tile.position.equals(p)) return tile.mine();
+        else return tile.copy();
+      })
+    );
 
     return new MinesweeperGrid(minedRows, this.size);
   }
 
   minePositions(positions: Position[]): MinesweeperGrid {
-    const minedRows: MinesweeperTile[][] = this.rows.map((row) => row.map(tile => {
-      if (positions.some(p => p.equals(tile.position)))
-        return tile.mine();
-      else return tile.copy();
-    }));
+    const minedRows: MinesweeperTile[][] = this.rows.map((row) =>
+      row.map((tile) => {
+        if (positions.some((p) => p.equals(tile.position))) return tile.mine();
+        else return tile.copy();
+      })
+    );
 
     return new MinesweeperGrid(minedRows, this.size);
   }
 
   countNeighboringMines(p: Position): number {
     const neighbors = this.getNeighbors(p);
-    const minedNeighbors = neighbors.filter(n => n.flags.mined);
+    const minedNeighbors = neighbors.filter((n) => n.flags.mined);
     return minedNeighbors.reduce((count, neighbor) => {
-      if (neighbor.flags.mined)
-        return count + 1
+      if (neighbor.flags.mined) return count + 1;
       else return count;
     }, 0);
   }
 
   applyNumbering(): MinesweeperGrid {
-    const numberedRows = this.rows.map((row) => row.map(tile => {
-      if (tile.flags.mined)
-        return tile.copy();
-      else
-        return tile.applyNumber(this.countNeighboringMines(tile.position));
-    }));
+    const numberedRows = this.rows.map((row) =>
+      row.map((tile) => {
+        if (tile.flags.mined) return tile.copy();
+        else return tile.applyNumber(this.countNeighboringMines(tile.position));
+      })
+    );
 
     return new MinesweeperGrid(numberedRows, this.size);
   }
@@ -99,25 +100,28 @@ export class MinesweeperGrid {
 
   getCols(): MinesweeperTile[][] {
     //returns a rotation of this.rows
-    return makeEmptyArray(this.size.cols).map((_, col) => this.rows.map(row => row[col]));
+    return makeEmptyArray(this.size.cols).map((_, col) =>
+      this.rows.map((row) => row[col])
+    );
   }
 
   getNeighbors(p: Position): MinesweeperTile[] {
-    const neighbors = p.getNeighboringPositions().map(n => this.getTile(n));
+    const neighbors = p.getNeighboringPositions().map((n) => this.getTile(n));
     return neighbors.filter(notUndefined);
   }
 
   copy(): MinesweeperGrid {
-    const rows = this.rows.map((row) => row.map(tile => tile.copy()));
+    const rows = this.rows.map((row) => row.map((tile) => tile.copy()));
     return new MinesweeperGrid(rows, this.size);
   }
 
   revealPosition(p: Position): MinesweeperGrid {
-    const revealedRows = this.rows.map((row) => row.map(tile => {
-      if (tile.position.equals(p))
-        return tile.reveal();
-      else return tile.copy();
-    }));
+    const revealedRows = this.rows.map((row) =>
+      row.map((tile) => {
+        if (tile.position.equals(p)) return tile.reveal();
+        else return tile.copy();
+      })
+    );
 
     return new MinesweeperGrid(revealedRows, this.size);
   }
@@ -129,28 +133,38 @@ export class MinesweeperGrid {
 
   reveal(p: Position): MinesweeperGrid {
     const tile = this.getTile(p);
-    if (tile && !tile.flags.mined && tile.nAdjMines === 0) return this.revealNeighbors(p);
+    if (tile?.flags.hidden === false) return this.copy(); //already revealed
+
+    if (tile && !tile.flags.mined && tile.nAdjMines === 0)
+      return this.revealNeighbors(p);
     else return this.revealPosition(p);
   }
 
   revealNeighbors(p: Position): MinesweeperGrid {
     const neighbors = this.getNeighbors(p);
+    const hiddenNeighbors = neighbors.filter((n) => n.flags.hidden);
 
-    return neighbors.reduce((grid, neighbor) => grid.reveal(neighbor.position), this.revealPosition(p));
+    return hiddenNeighbors.reduce(
+      (grid, neighbor) => grid.reveal(neighbor.position),
+      this.revealPosition(p)
+    );
   }
 
   toggleFlag(p: Position): MinesweeperGrid {
-    const flaggedRows = this.rows.map((row) => row.map(tile => {
-      if (tile.position.equals(p))
-        return tile.toggleFlag();
-      else return tile.copy();
-    }));
+    const flaggedRows = this.rows.map((row) =>
+      row.map((tile) => {
+        if (tile.position.equals(p)) return tile.toggleFlag();
+        else return tile.copy();
+      })
+    );
 
     return new MinesweeperGrid(flaggedRows, this.size);
   }
 
   revealAll(): MinesweeperGrid {
-    const revealedRows = this.rows.map((row) => row.map(tile => tile.reveal()));
+    const revealedRows = this.rows.map((row) =>
+      row.map((tile) => tile.reveal())
+    );
     return new MinesweeperGrid(revealedRows, this.size);
   }
 }
