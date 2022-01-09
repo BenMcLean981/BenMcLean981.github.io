@@ -59,7 +59,8 @@ export class MinesweeperTile {
 
 export interface TileProps {
   tile: MinesweeperTile;
-  handleClick?: (tile: MinesweeperTile, e: React.MouseEvent) => void;
+  handleFlag?: (tile: MinesweeperTile) => void;
+  handleReveal?: (tile: MinesweeperTile) => void;
 }
 
 export function MinesweeperTileButton(props: TileProps) {
@@ -78,5 +79,24 @@ export function MinesweeperTileButton(props: TileProps) {
       return tile.nAdjMines.toString()
   }
 
-  return <button onClick={(e) => props.handleClick(tile, e)}>{getText()}</button>
+  function getClass(): string {
+    if (tile.flags.hidden)
+      return "bg-slate-700";
+    else if (tile.flags.mined)
+      return "bg-red-600";
+    else
+      return "bg-slate-500"
+  }
+
+  function onClick(e: React.MouseEvent) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (e.button === 0 && props.handleReveal)
+      props.handleReveal(tile);
+    else if (e.button === 2 && props.handleFlag)
+      props.handleFlag(tile)
+  }
+
+  return <button className={`w-full aspect-square border border-neutral-500 rounded-sm hover:bg-slate-500 ${getClass()}`} onClick={onClick}>{getText()}</ button>
 }

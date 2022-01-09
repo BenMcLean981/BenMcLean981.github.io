@@ -1,4 +1,4 @@
-import { GridSize } from "./gridSize";
+import { GridSettings } from "./gridSettings";
 
 
 export class Position {
@@ -14,14 +14,14 @@ export class Position {
     return this.row === other.row && this.col === other.col;
   }
 
-  static makeRandom(size: GridSize, prng: any): Position {
+  static makeRandom(size: GridSettings, prng: any): Position {
     return new Position(
       Math.ceil(prng() * size.rows),
       Math.ceil(prng() * size.cols),
     )
   }
 
-  static makeRandomUnique(size: GridSize, usedPositions: Position[], prng: any): Position {
+  static makeRandomUnique(size: GridSettings, usedPositions: Position[], prng: any): Position {
     const randPos = Position.makeRandom(size, prng);
     const valid = usedPositions.every((p) => !p.equals(randPos));
     if (valid) return randPos;

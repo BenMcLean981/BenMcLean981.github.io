@@ -1,5 +1,5 @@
 import { MinesweeperTile } from "./tile";
-import { MinesweeperGrid, MinesweeperGridContainer } from "./grid";
+import { MinesweeperGrid } from "./grid";
 import { Position } from "./position";
 import { render, screen } from "@testing-library/react";
 
@@ -107,12 +107,22 @@ describe("MinesweeperGrid", () => {
       expect(grid.countNeighboringMines(new Position(2, 1))).toBe(3);
     })
   })
-})
 
-describe("gridComponent.", () => {
-  it("Renders the correct number of grid cells.", () => {
-    render(<MinesweeperGridContainer settings={{ rows: 3, cols: 2, mines: 0 }} />);
+  describe("getCols", () => {
+    it("Returns a rotation of the grid.", () => {
+      const grid = MinesweeperGrid.init({ rows: 3, cols: 2, mines: 0 });
+      const cols = grid.getCols();
 
-    expect(screen.getAllByRole("button").length).toBe(6);
+      expect(cols.length).toBe(2);
+      expect(cols[0].length).toBe(3);
+      expect(cols[0][0].position).toEqual(new Position(1, 1));
+      expect(cols[0][1].position).toEqual(new Position(2, 1));
+      expect(cols[0][2].position).toEqual(new Position(3, 1));
+      expect(cols[1].length).toBe(3);
+      expect(cols[1][0].position).toEqual(new Position(1, 2));
+      expect(cols[1][1].position).toEqual(new Position(2, 2));
+      expect(cols[1][2].position).toEqual(new Position(3, 2));
+    })
   })
 })
+
