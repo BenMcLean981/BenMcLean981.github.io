@@ -1,6 +1,6 @@
-import { MinesweeperGrid } from './grid';
-import { gridReducer } from './gridProvider';
-import { Position } from './position';
+import { MinesweeperGrid } from "./grid";
+import { gridReducer } from "./gridReducer";
+import { Position } from "./position";
 
 describe("gridReducer", () => {
     it("Reveals tile correctly.", () => {

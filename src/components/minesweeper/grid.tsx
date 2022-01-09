@@ -1,14 +1,13 @@
 import { GridSize as GridSettings, validateGridSize } from "./gridSize";
-import { MinesweeperTile } from "./tile";
+import { MinesweeperTile, MinesweeperTileButton } from "./tile";
 import { Position } from "./position";
 
 import { makeEmptyArray } from "../../utils/makeEmptyArray";
 import { notUndefined } from "../../utils/notUndefined";
-
+import React, { useReducer, useState } from "react";
+import { gridReducer } from "./gridReducer";
 
 const seedrandom = require("seedrandom");
-
-
 
 export class MinesweeperGrid {
   rows: MinesweeperTile[][];
@@ -19,9 +18,9 @@ export class MinesweeperGrid {
     this.size = size;
   }
 
-  static make(settings: GridSettings): MinesweeperGrid {
+  static make(settings: GridSettings, seed?: number): MinesweeperGrid {
     const grid = MinesweeperGrid.init(settings);
-    return grid.mine();
+    return grid.mine(seed);
   }
 
   static init(settings: GridSettings): MinesweeperGrid {
@@ -134,4 +133,26 @@ export class MinesweeperGrid {
     const revealedRows = this.rows.map((row) => row.map(tile => tile.reveal()));
     return new MinesweeperGrid(revealedRows, this.size);
   }
+}
+
+interface Props {
+  settings: GridSettings;
+  seed?: number;
+}
+
+
+export function MinesweeperGridContainer(props: Props) {
+  const [grid, dispatch] = useReducer(gridReducer, MinesweeperGrid.make(props.settings, props.seed));
+
+  function handleClick(tile: MinesweeperTile, e: React.MouseEvent): void {
+
+  }
+
+  return <div className="grid grid-cols-4 gap-4">
+    {grid.rows.map((row, rowIndex) => (<div key={rowIndex} className="">
+      {row.map((tile, colIdx) =>
+        (<MinesweeperTileButton tile={tile} key={colIdx} handleClick={handleClick} />))
+      }
+    </div>))}
+  </div>
 }

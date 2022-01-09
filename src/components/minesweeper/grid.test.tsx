@@ -1,6 +1,7 @@
 import { MinesweeperTile } from "./tile";
-import { MinesweeperGrid } from "./grid";
+import { MinesweeperGrid, MinesweeperGridContainer } from "./grid";
 import { Position } from "./position";
+import { render, screen } from "@testing-library/react";
 
 describe("MinesweeperGrid", () => {
   describe("init.", () => {
@@ -108,3 +109,10 @@ describe("MinesweeperGrid", () => {
   })
 })
 
+describe("gridComponent.", () => {
+  it("Renders the correct number of grid cells.", () => {
+    render(<MinesweeperGridContainer settings={{ rows: 3, cols: 2, mines: 0 }} />);
+
+    expect(screen.getAllByRole("button").length).toBe(6);
+  })
+})

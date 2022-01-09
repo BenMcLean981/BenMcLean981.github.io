@@ -87,7 +87,7 @@ describe("TileComponent", () => {
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("X");
+    expect(screen.getByRole("button")).toHaveTextContent("💣");
   });
 
   it("renders a mined hidden cell.", () => {
@@ -105,7 +105,7 @@ describe("TileComponent", () => {
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("F");
+    expect(screen.getByRole("button")).toHaveTextContent("");
   })
 
   it("renders a flagged hidden cell.", () => {

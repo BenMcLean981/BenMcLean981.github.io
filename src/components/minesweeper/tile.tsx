@@ -1,10 +1,5 @@
-import {
-  MinesweeperGridProvider,
-  minesweeperGridContext,
-} from "./gridProvider";
-
 import { Position } from "./position";
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 interface TileFlags {
   hidden: boolean;
@@ -64,18 +59,24 @@ export class MinesweeperTile {
 
 export interface TileProps {
   tile: MinesweeperTile;
+  handleClick?: (tile: MinesweeperTile, e: React.MouseEvent) => void;
 }
 
 export function MinesweeperTileButton(props: TileProps) {
   const tile = props.tile
 
-  if (tile.flags.hidden) {
-    return <button></button>;
-  } else if (tile.flags.flagged && !tile.flags.hidden) {
-    return <button>F</button>;
-  } else if (tile.flags.mined && !tile.flags.hidden) {
-    return <button>X</button>;
-  } else {
-    return <button>{tile.nAdjMines}</button>;
-  };
+  function getText(): string {
+    if (tile.flags.hidden)
+      return ""
+    else if (tile.flags.flagged && tile.flags.hidden)
+      return "🚩"
+    else if (tile.flags.mined && !tile.flags.hidden)
+      return "💣"
+    else if (tile.nAdjMines === undefined)
+      return ""
+    else
+      return tile.nAdjMines.toString()
+  }
+
+  return <button onClick={(e) => props.handleClick(tile, e)}>{getText()}</button>
 }
