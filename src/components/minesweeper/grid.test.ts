@@ -60,24 +60,30 @@ describe("MinesweeperGrid", () => {
     });
   })
 
-  describe("mine", () => {
-    it("Does nothing with no mines.", () => {
+  describe("applyNumbering", () => {
+    it("Sets all to zero with no mines.", () => {
       const grid = MinesweeperGrid.init({ rows: 3, cols: 2, mines: 0 });
-      const mineGrid = grid.mine();
-      expect(mineGrid).toEqual(grid);
+      const numberedGrid = grid.mine().applyNumbering();
+      expect(numberedGrid.rows.flat().every(t => t.nAdjMines === 0)).toBe(true);
     })
+  })
 
+  describe("make", () => {
     it("Applies correct number of mines.", () => {
-      const grid = MinesweeperGrid.init({ rows: 3, cols: 2, mines: 3 });
-      const mineGrid = grid.mine();
-      const numMines = mineGrid.rows.reduce((acc, row) => {
+      const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
+      const numMines = grid.rows.reduce((acc, row) => {
         return acc + row.reduce((acc, tile) => {
           return acc + (tile.flags.mined ? 1 : 0);
         }, 0);
       }, 0);
 
       expect(numMines).toBe(3);
-      expect(grid).not.toEqual(mineGrid);
+    })
+
+    it("Applies correct numbers.", () => {
+      const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 0 });
+
+      expect(grid.rows.flat().every(t => t.nAdjMines === 0)).toBe(true);
     })
   })
 

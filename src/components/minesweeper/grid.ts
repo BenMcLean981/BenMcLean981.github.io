@@ -18,7 +18,7 @@ export class MinesweeperGrid {
 
   static make(settings: GridSettings, seed?: number): MinesweeperGrid {
     const grid = MinesweeperGrid.init(settings);
-    return grid.mine(seed);
+    return grid.mine(seed).applyNumbering();
   }
 
   static init(settings: GridSettings): MinesweeperGrid {
