@@ -29,7 +29,11 @@ export class MinesweeperTile {
   }
 
   copy(): MinesweeperTile {
-    return new MinesweeperTile(this.position.copy(), { ...this.flags }, this.nAdjMines);
+    return new MinesweeperTile(
+      this.position.copy(),
+      { ...this.flags },
+      this.nAdjMines
+    );
   }
 
   reveal(): MinesweeperTile {
@@ -52,7 +56,7 @@ export class MinesweeperTile {
 
   applyNumber(n: number): MinesweeperTile {
     const tile = this.copy();
-    tile.nAdjMines = n;
+    if (tile.flags.mined === false) tile.nAdjMines = n;
     return tile;
   }
 }
@@ -64,39 +68,39 @@ export interface TileProps {
 }
 
 export function MinesweeperTileButton(props: TileProps) {
-  const tile = props.tile
+  const tile = props.tile;
 
   function getText(): string {
-    if (tile.flags.hidden)
-      return ""
-    else if (tile.flags.flagged && tile.flags.hidden)
-      return "🚩"
-    else if (tile.flags.mined && !tile.flags.hidden)
-      return "💣"
-    else if (tile.nAdjMines === undefined)
-      return ""
-    else
-      return tile.nAdjMines.toString()
+    if (tile.flags.flagged) return "🚩";
+    else if (tile.flags.mined && !tile.flags.hidden) return "💣";
+    else if (tile.nAdjMines === undefined) return "";
+    else if (tile.flags.hidden === false) return tile.nAdjMines.toString();
+    else return "";
   }
 
   function getClass(): string {
-    if (tile.flags.hidden)
-      return "bg-slate-700";
-    else if (tile.flags.mined)
-      return "bg-red-600";
-    else
-      return "bg-slate-500"
+    if (tile.flags.hidden) return "bg-slate-700";
+    else if (tile.flags.mined) return "bg-red-600";
+    else return "bg-slate-500";
   }
 
-  function onClick(e: React.MouseEvent) {
-    e.stopPropagation();
+  function handleRightClick(e: React.MouseEvent) {
     e.preventDefault();
-
-    if (e.button === 0 && props.handleReveal)
-      props.handleReveal(tile);
-    else if (e.button === 2 && props.handleFlag)
-      props.handleFlag(tile)
+    if (props.handleFlag !== undefined) props.handleFlag(tile);
   }
 
-  return <button className={`w-full aspect-square border border-neutral-500 rounded-sm hover:bg-slate-500 ${getClass()}`} onClick={onClick}>{getText()}</ button>
+  function handleLeftClick(e: React.MouseEvent) {
+    e.preventDefault();
+    if (props.handleReveal !== undefined) props.handleReveal(tile);
+  }
+
+  return (
+    <button
+      className={`w-full aspect-square border border-neutral-500 rounded-sm hover:bg-slate-500 ${getClass()}`}
+      onClick={handleLeftClick}
+      onContextMenu={handleRightClick}
+    >
+      {getText()}
+    </button>
+  );
 }

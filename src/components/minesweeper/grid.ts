@@ -112,7 +112,7 @@ export class MinesweeperGrid {
     return new MinesweeperGrid(rows, this.size);
   }
 
-  reveal(p: Position): MinesweeperGrid {
+  revealPosition(p: Position): MinesweeperGrid {
     const revealedRows = this.rows.map((row) => row.map(tile => {
       if (tile.position.equals(p))
         return tile.reveal();
@@ -120,6 +120,23 @@ export class MinesweeperGrid {
     }));
 
     return new MinesweeperGrid(revealedRows, this.size);
+  }
+
+  isMine(p: Position): boolean {
+    const tile = this.getTile(p);
+    return tile !== undefined && tile.flags.mined;
+  }
+
+  reveal(p: Position): MinesweeperGrid {
+    const tile = this.getTile(p);
+    if (tile && !tile.flags.mined && tile.nAdjMines === 0) return this.revealNeighbors(p);
+    else return this.revealPosition(p);
+  }
+
+  revealNeighbors(p: Position): MinesweeperGrid {
+    const neighbors = this.getNeighbors(p);
+
+    return neighbors.reduce((grid, neighbor) => grid.reveal(neighbor.position), this.revealPosition(p));
   }
 
   toggleFlag(p: Position): MinesweeperGrid {

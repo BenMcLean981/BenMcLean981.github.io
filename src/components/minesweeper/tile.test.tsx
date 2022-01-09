@@ -30,7 +30,7 @@ describe("MinesweeperTile", () => {
       const toggle = tile.mine();
       expect(toggle.flags.mined).toBe(true);
     });
-  })
+  });
 
   describe("reveal.", () => {
     it("Reaveals the tile", () => {
@@ -44,7 +44,7 @@ describe("MinesweeperTile", () => {
       const toggle = tile.reveal();
       expect(toggle.flags.hidden).toBe(false);
     });
-  })
+  });
 
   describe("toggleFlag", () => {
     it("toggles the flag attribute.", () => {
@@ -57,8 +57,8 @@ describe("MinesweeperTile", () => {
 
       const unflagged = flagged.toggleFlag();
       expect(unflagged.flags.flagged).toBe(false);
-    })
-  })
+    });
+  });
 
   describe("copy.", () => {
     it("Returns a copy of the tile.", () => {
@@ -68,10 +68,9 @@ describe("MinesweeperTile", () => {
       expect(copy.position).not.toBe(tile.position);
       expect(copy.flags).not.toBe(tile.flags);
       expect(copy.nAdjMines).toBe(tile.nAdjMines);
-    })
-  })
-})
-
+    });
+  });
+});
 
 describe("TileComponent", () => {
   it("renders a hidden cell.", () => {
@@ -99,14 +98,16 @@ describe("TileComponent", () => {
   });
 
   it("renders a flagged shown cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3)).toggleFlag().reveal();
+    const tile = MinesweeperTile.makeTile(new Position(2, 3))
+      .toggleFlag()
+      .reveal();
 
     expect(tile.flags.flagged).toBe(true);
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("");
-  })
+    expect(screen.getByRole("button")).toHaveTextContent("🚩");
+  });
 
   it("renders a flagged hidden cell.", () => {
     const tile = MinesweeperTile.makeTile(new Position(2, 3)).toggleFlag();
@@ -115,16 +116,18 @@ describe("TileComponent", () => {
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("");
-  })
+    expect(screen.getByRole("button")).toHaveTextContent("🚩");
+  });
 
   it("renders a shown numbered cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3)).applyNumber(1).reveal();
+    const tile = MinesweeperTile.makeTile(new Position(2, 3))
+      .applyNumber(1)
+      .reveal();
 
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
     expect(screen.getByRole("button")).toHaveTextContent("1");
-  })
+  });
 
   it("renders a hidden numbered cell.", () => {
     const tile = MinesweeperTile.makeTile(new Position(2, 3)).applyNumber(1);
@@ -132,5 +135,5 @@ describe("TileComponent", () => {
     render(<MinesweeperTileButton tile={tile} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
     expect(screen.getByRole("button")).toHaveTextContent("");
-  })
+  });
 });
