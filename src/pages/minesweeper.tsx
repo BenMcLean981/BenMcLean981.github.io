@@ -1,19 +1,13 @@
-import { Layout } from "components/layout";
-import { gridReducer } from "components/minesweeper/gridReducer";
-import { Position } from "components/minesweeper/position";
 import {
   MinesweeperTile,
   MinesweeperTileButton,
 } from "components/minesweeper/tile";
-import React, { useReducer, useState } from "react";
-import { MinesweeperGrid } from "../components/minesweeper/grid";
-import { GridSettings } from "../components/minesweeper/gridSettings";
+import React, { useReducer } from "react";
 
-const BEGINNER_SETTINGS: GridSettings = {
-  rows: 9,
-  cols: 9,
-  mines: 10,
-};
+import { GridSettings } from "../components/minesweeper/gridSettings";
+import { Layout } from "components/layout";
+import { MinesweeperGrid } from "../components/minesweeper/grid";
+import { gridReducer } from "components/minesweeper/gridReducer";
 
 const INTERMEDIATE_SETTINGS: GridSettings = {
   rows: 16,
@@ -21,19 +15,12 @@ const INTERMEDIATE_SETTINGS: GridSettings = {
   mines: 40,
 };
 
-const EXPERT_SETTINGS: GridSettings = {
-  rows: 16,
-  cols: 30,
-  mines: 99,
-};
-
 //to simplify screen size, only supporting intermediate settings.
 
 export function Minesweeper() {
-  const [settings, setSettings] = useState(INTERMEDIATE_SETTINGS);
   const [grid, dispatch] = useReducer(
     gridReducer,
-    MinesweeperGrid.make(settings)
+    MinesweeperGrid.make(INTERMEDIATE_SETTINGS)
   );
 
   //need some way to fit the grid into the window

@@ -1,6 +1,6 @@
-import React from "react";
 import { MinesweeperGrid } from "./grid";
 import { MinesweeperTile } from "./tile";
+import React from "react";
 
 type GridAction =
   | { type: "REVEAL"; tile: MinesweeperTile }
@@ -23,7 +23,8 @@ export const gridReducer: React.Reducer<MinesweeperGrid, GridAction> = (
 ) => {
   switch (action.type) {
     case "REVEAL":
-      return grid.reveal(action.tile.position);
+      if (grid.isMine(action.tile.position)) return grid.lose();
+      else return grid.reveal(action.tile.position);
     case "FLAG":
       return grid.toggleFlag(action.tile.position);
   }

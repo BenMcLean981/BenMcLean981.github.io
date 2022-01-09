@@ -312,4 +312,5 @@ describe("MinesweeperGrid", () => {
       expect(revealed.getTile(new Position(3, 3))?.flags.hidden).toBe(false);
     }, 3);
   });
+
 });

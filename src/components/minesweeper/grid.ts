@@ -9,10 +9,12 @@ const seedrandom = require("seedrandom");
 export class MinesweeperGrid {
   rows: MinesweeperTile[][];
   size: GridSettings;
+  hasLost: boolean;
 
   constructor(rows: MinesweeperTile[][], size: GridSettings) {
     this.rows = rows;
     this.size = size;
+    this.hasLost = false;
   }
 
   static make(settings: GridSettings, seed?: number): MinesweeperGrid {
@@ -129,6 +131,22 @@ export class MinesweeperGrid {
   isMine(p: Position): boolean {
     const tile = this.getTile(p);
     return tile !== undefined && tile.flags.mined;
+  }
+
+  lose(): MinesweeperGrid {
+    const losingGrid = this.revealAll();
+    losingGrid.hasLost = true;
+    return losingGrid;
+  }
+
+  win(): MinesweeperGrid {
+    return this.revealAll();
+  }
+
+  allRevealed(): boolean {
+    return this.rows.every((row) =>
+      row.every((tile) => tile.flags.hidden === false)
+    );
   }
 
   reveal(p: Position): MinesweeperGrid {

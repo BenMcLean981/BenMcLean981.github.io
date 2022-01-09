@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
-
 import { Position } from "./position";
+import React from "react";
 
 interface TileFlags {
   hidden: boolean;
