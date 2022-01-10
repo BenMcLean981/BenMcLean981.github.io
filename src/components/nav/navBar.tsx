@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import { DesktopNav } from "./DesktopNav";
-import { MobileDropdown } from "./mobileDropdown";
-import { MobileNav } from "./mobileNav";
+import { MobileDropdownButton } from "./mobileDropdownButton";
+import { MobileNavDropdown } from "./mobileNavDropdown";
 import { useOutsideAlterter } from "../../hooks/useOutsideAlerter";
 
 /**
@@ -37,14 +37,14 @@ export function NavBar() {
         <div className="mx-auto px-4">
           <div className="flex justify-between">
             <DesktopNav />
-            <MobileDropdown
+            <MobileDropdownButton
               handleToggle={() => setMobileOpen((open) => !open)}
               open={mobileOpen}
             />
           </div>
         </div>
         <div className="md:hidden hidden mobile-menu" ref={menuRef}>
-          <MobileNav />
+          <MobileNavDropdown />
         </div>
       </nav>
     </div>

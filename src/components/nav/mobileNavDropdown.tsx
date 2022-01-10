@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import React from "react";
 import { useLocation } from "react-router";
 
-export function MobileNav() {
+export function MobileNavDropdown() {
   const location = useLocation();
 
   return (

@@ -143,18 +143,8 @@ export class MinesweeperGrid {
     return losingGrid;
   }
 
-  win(): MinesweeperGrid {
-    return this.revealAll();
-  }
-
   isGameOver(): boolean {
     return this.rows.every((row) => row.every((tile) => !tile.flags.hidden));
-  }
-
-  allRevealed(): boolean {
-    return this.rows.every((row) =>
-      row.every((tile) => tile.flags.hidden === false)
-    );
   }
 
   reveal(p: Position): MinesweeperGrid {

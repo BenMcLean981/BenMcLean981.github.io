@@ -330,4 +330,45 @@ describe("MinesweeperGrid", () => {
       expect(numClicked).toBe(1);
     });
   });
+
+  describe("copy", () => {
+    it("returns a different instance of the grid.", () => {
+      const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
+      const copiedGrid = grid.copy();
+
+      expect(grid).not.toBe(copiedGrid);
+    });
+  });
+
+  describe("lose", () => {
+    it("reveals all tiles.", () => {
+      const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
+      const lostGrid = grid.lose();
+
+      expect(
+        lostGrid.rows.every((row) => row.every((tile) => !tile.flags.hidden))
+      ).toBe(true);
+      expect(lostGrid.hasLost).toBe(true);
+
+      expect(grid.hasLost).toBe(false);
+      expect(grid).not.toBe(lostGrid);
+    });
+  });
+
+  describe("revealAll", () => {
+    it("Reveals all the tiles.", () => {
+      const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
+      const revealedGrid = grid.revealAll();
+
+      expect(
+        revealedGrid.rows.every((row) =>
+          row.every((tile) => !tile.flags.hidden)
+        )
+      ).toBe(true);
+      expect(revealedGrid.hasLost).toBe(false);
+
+      expect(grid.hasLost).toBe(false);
+      expect(grid).not.toBe(revealedGrid);
+    });
+  });
 });

@@ -37,4 +37,21 @@ describe("gridReducer", () => {
       nextGrid.getTile(new Position(pos.row, pos.col + 1))?.flags.flagged
     ).toBe(false);
   });
+
+  it("Resets the game correctly.", () => {
+    const grid = MinesweeperGrid.make({
+      rows: 3,
+      cols: 2,
+      mines: 3,
+    }).revealAll();
+
+    const nextGrid = gridReducer(grid, {
+      type: "RESET",
+      settings: grid.size,
+    });
+    expect(nextGrid.hasLost).toBe(false);
+    expect(
+      nextGrid.rows.every((row) => row.every((tile) => tile.flags.hidden))
+    ).toBe(true);
+  });
 });
