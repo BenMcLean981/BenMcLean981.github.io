@@ -7,7 +7,7 @@ export function MinesweeperTileButton(props: TileProps) {
   function getText(): string {
     if (tile.flags.flagged && tile.flags.mined && props.gameOver) return "💣";
     if (tile.flags.flagged && !tile.flags.mined && props.gameOver) return "❌";
-    if (tile.flags.flagged) return "🚩";
+    if (tile.flags.flagged && tile.flags.hidden) return "🚩";
     else if (tile.flags.mined && !tile.flags.hidden) return "💣";
     else if (tile.nAdjMines === undefined) return "";
     else if (!tile.flags.hidden && tile.nAdjMines === 0) return "";

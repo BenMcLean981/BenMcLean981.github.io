@@ -5,71 +5,7 @@ import { MinesweeperTileButton } from "../minesweeperTileButton";
 import { Position } from "../position";
 
 describe("TileComponent", () => {
-  it("renders a hidden cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3));
-
-    render(<MinesweeperTileButton tile={tile} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("");
-  });
-
-  it("renders a mined shown cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3)).mine().reveal();
-
-    render(<MinesweeperTileButton tile={tile} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("💣");
-  });
-
-  it("renders a mined hidden cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3)).mine();
-
-    render(<MinesweeperTileButton tile={tile} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("");
-  });
-
-  it("renders a flagged shown cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3))
-      .toggleFlag()
-      .reveal();
-
-    expect(tile.flags.flagged).toBe(true);
-
-    render(<MinesweeperTileButton tile={tile} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("🚩");
-  });
-
-  it("renders a flagged hidden cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3)).toggleFlag();
-
-    expect(tile.flags.flagged).toBe(true);
-
-    render(<MinesweeperTileButton tile={tile} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("🚩");
-  });
-
-  it("renders a shown numbered cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3))
-      .applyNumber(1)
-      .reveal();
-
-    render(<MinesweeperTileButton tile={tile} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("1");
-  });
-
-  it("renders a hidden numbered cell.", () => {
-    const tile = MinesweeperTile.makeTile(new Position(2, 3)).applyNumber(1);
-
-    render(<MinesweeperTileButton tile={tile} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveTextContent("");
-  });
-
-  it("calls handleFlag.", () => {
+  it("calls handleFlag on right click.", () => {
     const tile = MinesweeperTile.makeTile(new Position(2, 3)).applyNumber(1);
 
     const handleFlag = jest.fn();
@@ -83,7 +19,7 @@ describe("TileComponent", () => {
     expect(handleFlag).toBeCalledTimes(1);
   });
 
-  it("calls handleReveal.", () => {
+  it("calls handleReveal on left click.", () => {
     const tile = MinesweeperTile.makeTile(new Position(2, 3)).applyNumber(1);
 
     const handleReveal = jest.fn();
@@ -95,5 +31,261 @@ describe("TileComponent", () => {
     button.click();
 
     expect(handleReveal).toBeCalledTimes(1);
+  });
+
+  describe("getText.", () => {
+    it("returns an empty string for an hidden tile.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: true, flagged: false, mined: false, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("");
+    });
+
+    it("returns a flag string for an hidden flagged tile.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: true, flagged: true, mined: false, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("🚩");
+    });
+
+    it("returns a number for flagged shown tile.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: true, mined: false, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("");
+    });
+
+    it("returns blank for a mined hidden tile.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: true, flagged: false, mined: true, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("");
+    });
+
+    it("returns a mine for a mined revealed tile.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: true, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("💣");
+    });
+
+    it("returns a bomb for a gameover flagged mine.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: true, mined: true, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("💣");
+    });
+
+    it("returns a cross for a gameover flagged non-mine.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: true, mined: false, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("❌");
+    });
+
+    it("returns a string for undefined nAdj.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        undefined
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("");
+    });
+
+    it("returns an empty string for nAdj=0 and revealed.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        0
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("");
+    });
+
+    it("returns a number string for nAdj!=0 and revealed.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        3
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent("3");
+    });
+  });
+
+  describe("getTextColorClass.", () => {
+    it("Returns text-blue-600 for 1.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        1
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-blue-600");
+    });
+
+    it("Returns text-green-500 for 2.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        2
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-green-500");
+    });
+
+    it("Returns text-red-700 for 3.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        3
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-red-700");
+    });
+
+    it("Returns text-blue-900 for 4.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        4
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-blue-900");
+    });
+
+    it("Returns text-red-900 for .", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        5
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-red-900");
+    });
+
+    it("Returns text-cyan-700 for 6.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        6
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-cyan-700");
+    });
+
+    it("Returns text-black for 7.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        7
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-black");
+    });
+
+    it("Returns text-gray-700 for 8.", () => {
+      const tile = new MinesweeperTile(
+        new Position(1, 1),
+        { hidden: false, flagged: false, mined: false, clicked: false },
+        8
+      );
+
+      render(<MinesweeperTileButton tile={tile} gameOver={true} />);
+
+      const button = screen.getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass("text-gray-700");
+    });
   });
 });
