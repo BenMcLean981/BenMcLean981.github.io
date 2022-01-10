@@ -144,7 +144,11 @@ export class MinesweeperGrid {
   }
 
   isGameOver(): boolean {
-    return this.rows.every((row) => row.every((tile) => !tile.flags.hidden));
+    return this.rows.every((row) =>
+      row.every(
+        (tile) => !tile.flags.hidden || (tile.flags.mined && tile.flags.flagged)
+      )
+    );
   }
 
   reveal(p: Position): MinesweeperGrid {

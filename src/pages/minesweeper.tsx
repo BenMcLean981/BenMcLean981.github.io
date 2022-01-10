@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 
 import { GameBanner } from "../components/minesweeper/gameBanner";
 import { GridSettings } from "../components/minesweeper/gridSettings";
@@ -7,6 +7,7 @@ import { MinesweeperGrid } from "../components/minesweeper/grid";
 import { MinesweeperTile } from "components/minesweeper/tile";
 import { MinesweeperTileButton } from "components/minesweeper/minesweeperTileButton";
 import { gridReducer } from "components/minesweeper/gridReducer";
+import { useTimer } from "../components/minesweeper/useTimer";
 
 const INTERMEDIATE_SETTINGS: GridSettings = {
   rows: 16,
@@ -21,6 +22,8 @@ export function Minesweeper() {
     gridReducer,
     MinesweeperGrid.make(INTERMEDIATE_SETTINGS)
   );
+
+  const timer = useTimer();
 
   //need some way to fit the grid into the window
 
@@ -52,6 +55,26 @@ export function Minesweeper() {
         ))}
     </div>
   );
+
+  useEffect(() => {
+    const started = grid.rows.some((row) =>
+      row.some((tile) => !tile.flags.hidden)
+    );
+    const gameOver = grid.isGameOver();
+    if (started && !gameOver) {
+      timer.enable();
+    }
+
+    if (gameOver) {
+      timer.disable();
+    }
+  }, [grid, timer]);
+
+  function handleRestart(): void {
+    dispatch({ type: "RESET", settings: INTERMEDIATE_SETTINGS });
+    timer.reset();
+  }
+
   return (
     <Layout>
       <div className="mx-auto sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12 mt-4">
@@ -71,12 +94,7 @@ export function Minesweeper() {
         </p>
         <hr className="mt-2" />
 
-        <GameBanner
-          grid={grid}
-          onReset={() =>
-            dispatch({ type: "RESET", settings: INTERMEDIATE_SETTINGS })
-          }
-        />
+        <GameBanner grid={grid} onReset={handleRestart} timer={timer} />
         {gridComponent}
       </div>
     </Layout>
