@@ -1,7 +1,7 @@
-import { MinesweeperGrid } from "./grid";
-import { MinesweeperTile } from "./tile";
-import { Position } from "./position";
-import { gridReducer } from "./gridReducer";
+import { MinesweeperGrid } from "../grid";
+import { MinesweeperTile } from "../tile";
+import { Position } from "../position";
+import { gridReducer } from "../gridReducer";
 
 describe("gridReducer", () => {
   it("Reveals tile correctly.", () => {

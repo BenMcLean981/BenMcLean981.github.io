@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { MobileDropdownButton } from "./mobileDropdownButton";
+import { MobileDropdownButton } from "../mobileDropdownButton";
 
 describe("mobileDropdownButton.", () => {
   it("renders gray if closed.", () => {

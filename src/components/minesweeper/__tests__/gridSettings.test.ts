@@ -1,4 +1,4 @@
-import { validateGridSettings } from "./gridSettings";
+import { validateGridSettings } from "../gridSettings";
 
 describe("validateGridSettings", () => {
   it("Returns true when mines < cells", () => {

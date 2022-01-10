@@ -1,5 +1,5 @@
-import { MinesweeperTile } from "./tile";
-import { Position } from "./position";
+import { MinesweeperTile } from "../tile";
+import { Position } from "../position";
 
 describe("MinesweeperTile", () => {
   describe("makeTile", () => {

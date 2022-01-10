@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { GameOverMessage } from "./gameOverMessage";
+import { GameOverMessage } from "../gameOverMessage";
 
 describe("GameOverMessage", () => {
   it("renders nothing if the game is not over.", () => {

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { MemoryRouter } from "react-router";
-import { MobileNavDropdown } from "./mobileNavDropdown";
+import { MobileNavDropdown } from "../mobileNavDropdown";
 
 describe("MobileNavDropdown.", () => {
   it("Renders all the links from home.", () => {

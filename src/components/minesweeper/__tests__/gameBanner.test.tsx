@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 
-import { GameBanner } from "./gameBanner";
-import { MinesweeperGrid } from "./grid";
+import { GameBanner } from "../gameBanner";
+import { MinesweeperGrid } from "../grid";
 
-jest.mock("./gameOverMessage", () => ({
+jest.mock("../gameOverMessage", () => ({
   GameOverMessage: () => <div data-testid="gameOverMessage" />,
 }));
 

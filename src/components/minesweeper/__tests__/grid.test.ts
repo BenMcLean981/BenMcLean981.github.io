@@ -1,6 +1,6 @@
-import { MinesweeperGrid } from "./grid";
-import { MinesweeperTile } from "./tile";
-import { Position } from "./position";
+import { MinesweeperGrid } from "../grid";
+import { MinesweeperTile } from "../tile";
+import { Position } from "../position";
 
 describe("MinesweeperGrid", () => {
   describe("init.", () => {

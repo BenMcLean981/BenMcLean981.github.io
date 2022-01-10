@@ -1,6 +1,4 @@
-import {
-  Position,
-} from "./position";
+import { Position } from "../position";
 const seedrandom = require("seedrandom");
 
 describe("class Position", () => {
@@ -41,14 +39,8 @@ describe("class Position", () => {
     it("Generates different position with same prng.", () => {
       const prng = new seedrandom(1);
 
-      const first = Position.makeRandom(
-        { rows: 2, cols: 3, mines: 0 },
-        prng
-      );
-      const second = Position.makeRandom(
-        { rows: 2, cols: 3, mines: 0 },
-        prng
-      );
+      const first = Position.makeRandom({ rows: 2, cols: 3, mines: 0 }, prng);
+      const second = Position.makeRandom({ rows: 2, cols: 3, mines: 0 }, prng);
 
       expect(first).not.toEqual(second);
     });
@@ -101,5 +93,4 @@ describe("class Position", () => {
       ]);
     });
   });
-
-})
+});

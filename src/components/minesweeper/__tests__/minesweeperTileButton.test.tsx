@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import { MinesweeperTile } from "./tile";
-import { MinesweeperTileButton } from "./minesweeperTileButton";
-import { Position } from "./position";
+import { MinesweeperTile } from "../tile";
+import { MinesweeperTileButton } from "../minesweeperTileButton";
+import { Position } from "../position";
 
 describe("TileComponent", () => {
   it("renders a hidden cell.", () => {
