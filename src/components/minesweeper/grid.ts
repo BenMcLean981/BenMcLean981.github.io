@@ -89,6 +89,17 @@ export class MinesweeperGrid {
     return new MinesweeperGrid(numberedRows, this.size);
   }
 
+  setTile(tile: MinesweeperTile): MinesweeperGrid {
+    const newRows = this.rows.map((row) =>
+      row.map((t) => {
+        if (t.position.equals(tile.position)) return tile;
+        else return t;
+      })
+    );
+
+    return new MinesweeperGrid(newRows, this.size);
+  }
+
   getTile(p: Position): MinesweeperTile | undefined {
     if (
       p.row > this.size.rows ||
@@ -118,14 +129,7 @@ export class MinesweeperGrid {
   }
 
   revealPosition(p: Position): MinesweeperGrid {
-    const revealedRows = this.rows.map((row) =>
-      row.map((tile) => {
-        if (tile.position.equals(p)) return tile.reveal();
-        else return tile.copy();
-      })
-    );
-
-    return new MinesweeperGrid(revealedRows, this.size);
+    return this.setTile(this.getTile(p)!.reveal());
   }
 
   isMine(p: Position): boolean {
@@ -160,6 +164,12 @@ export class MinesweeperGrid {
     if (tile && !tile.flags.mined && tile.nAdjMines === 0)
       return this.revealNeighbors(p);
     else return this.revealPosition(p);
+  }
+
+  click(p: Position): MinesweeperGrid {
+    const clickedTile = this.getTile(p);
+    const clickedGrid = this.setTile(clickedTile!.click());
+    return clickedGrid.reveal(p);
   }
 
   revealNeighbors(p: Position): MinesweeperGrid {

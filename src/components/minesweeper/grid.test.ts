@@ -313,4 +313,21 @@ describe("MinesweeperGrid", () => {
     }, 3);
   });
 
+  describe("click", () => {
+    it("sets the tiles clicked attribute.", () => {
+      const grid = MinesweeperGrid.make({ rows: 3, cols: 2, mines: 3 });
+      const pos = new Position(1, 1);
+      const clickedGrid = grid.click(pos);
+
+      expect(clickedGrid.getTile(pos)?.flags.clicked).toBe(true);
+
+      const numClicked = clickedGrid.rows.reduce(
+        (acc, row) =>
+          acc +
+          row.reduce((acc, tile) => acc + (tile.flags.clicked ? 1 : 0), 0),
+        0
+      );
+      expect(numClicked).toBe(1);
+    });
+  });
 });

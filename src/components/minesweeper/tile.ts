@@ -4,13 +4,13 @@ import React from "react";
 interface TileFlags {
   hidden: boolean;
   mined: boolean;
+  clicked: boolean;
   flagged: boolean;
 }
 
 export class MinesweeperTile {
   position: Position;
   flags: TileFlags;
-
   nAdjMines?: number;
 
   constructor(position: Position, flags: TileFlags, number?: number) {
@@ -20,10 +20,11 @@ export class MinesweeperTile {
   }
 
   static makeTile(p: Position): MinesweeperTile {
-    const DEFAULT_FLAGS = {
+    const DEFAULT_FLAGS: TileFlags = {
       hidden: true,
       mined: false,
       flagged: false,
+      clicked: false,
     };
     return new MinesweeperTile(p, DEFAULT_FLAGS);
   }
@@ -39,6 +40,12 @@ export class MinesweeperTile {
   reveal(): MinesweeperTile {
     const tile = this.copy();
     tile.flags.hidden = false;
+    return tile;
+  }
+
+  click(): MinesweeperTile {
+    const tile = this.copy();
+    tile.flags.clicked = true;
     return tile;
   }
 
@@ -72,7 +79,8 @@ export function MinesweeperTileButton(props: TileProps) {
   const tile = props.tile;
 
   function getText(): string {
-    if (tile.flags.flagged && tile.flags.mined && props.gameOver) return "❌";
+    if (tile.flags.flagged && tile.flags.mined && props.gameOver) return "💣";
+    if (tile.flags.flagged && !tile.flags.mined && props.gameOver) return "❌";
     if (tile.flags.flagged) return "🚩";
     else if (tile.flags.mined && !tile.flags.hidden) return "💣";
     else if (tile.nAdjMines === undefined) return "";
@@ -85,6 +93,11 @@ export function MinesweeperTileButton(props: TileProps) {
     if (tile.flags.hidden) return "bg-slate-700";
     else if (tile.flags.mined && !tile.flags.flagged) return "bg-red-600";
     else return "bg-slate-500";
+  }
+
+  function getHoverClass(): string {
+    if (props.gameOver) return "";
+    else return "hover:bg-slate-500 ";
   }
 
   function getTextColorClass(): string {
@@ -110,11 +123,11 @@ export function MinesweeperTileButton(props: TileProps) {
   }
 
   const baseClass =
-    "w-full aspect-square border border-neutral-500 rounded-sm hover:bg-slate-500 font-mono text-2xl";
+    "w-full aspect-square border border-neutral-500 rounded-sm font-mono text-2xl";
 
   return (
     <button
-      className={`${baseClass} ${getBackgroundClass()} ${getTextColorClass()}`}
+      className={`${baseClass} ${getBackgroundClass()} ${getTextColorClass()} ${getHoverClass()}`}
       onClick={handleLeftClick}
       onContextMenu={handleRightClick}
       disabled={props.gameOver}
