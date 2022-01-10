@@ -1,13 +1,11 @@
-import {
-  MinesweeperTile,
-  MinesweeperTileButton,
-} from "components/minesweeper/tile";
 import React, { useReducer } from "react";
 
 import { GameBanner } from "../components/minesweeper/gameBanner";
 import { GridSettings } from "../components/minesweeper/gridSettings";
 import { Layout } from "components/layout";
 import { MinesweeperGrid } from "../components/minesweeper/grid";
+import { MinesweeperTile } from "components/minesweeper/tile";
+import { MinesweeperTileButton } from "components/minesweeper/minesweeperTileButton";
 import { gridReducer } from "components/minesweeper/gridReducer";
 
 const INTERMEDIATE_SETTINGS: GridSettings = {
