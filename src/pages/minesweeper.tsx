@@ -78,8 +78,10 @@ export function Minesweeper() {
   return (
     <Layout>
       <div className="mx-auto sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12 mt-4">
-        <h1 className="text-6xl font-medium leading-tight">Minesweeper</h1>
-        <p>
+        <h1 className="text-6xl font-medium leading-tight dark:text-white">
+          Minesweeper
+        </h1>
+        <p className="dark:text-white">
           I decided to make a game of minesweeper in typescript. I chose
           minesweeper because more or less everyone knows the rules, so it
           should be a good way to showcase my skills. Check out the code{" "}

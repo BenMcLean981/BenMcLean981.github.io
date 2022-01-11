@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+import { DarkModeSwitch } from "./darkModeSwitch";
 import { DesktopNav } from "./DesktopNav";
 import { MobileDropdownButton } from "./mobileDropdownButton";
 import { MobileNavDropdown } from "./mobileNavDropdown";
@@ -37,6 +38,7 @@ export function NavBar() {
         <div className="mx-auto px-4">
           <div className="flex justify-between">
             <DesktopNav />
+            <DarkModeSwitch />
             <MobileDropdownButton
               handleToggle={() => setMobileOpen((open) => !open)}
               open={mobileOpen}

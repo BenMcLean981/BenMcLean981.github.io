@@ -10,9 +10,9 @@ describe("useTimer.", () => {
   it("Runs a timer if enabled.", () => {
     const { result } = renderHook(() => useTimer());
     expect(result.current.seconds).toBe(0);
-    result.current.enable();
 
     act(() => {
+      result.current.enable();
       jest.advanceTimersByTime(1000);
     });
 
@@ -48,10 +48,14 @@ describe("useTimer.", () => {
     expect(result.current.seconds).toBe(0);
 
     expect(result.current.isEnabled).toBe(false);
-    result.current.enable();
+    act(() => {
+      result.current.enable();
+    });
 
     expect(result.current.isEnabled).toBe(true);
-    result.current.disable();
+    act(() => {
+      result.current.disable();
+    });
 
     expect(result.current.isEnabled).toBe(false);
   });

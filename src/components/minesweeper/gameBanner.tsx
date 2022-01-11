@@ -22,7 +22,9 @@ export function GameBanner(props: Props) {
         Reset
       </button>
       <GameOverMessage gameOver={grid.isGameOver()} hasLost={grid.hasLost} />
-      <div className="text-3xl font-medium leading-tight">{time}</div>
+      <div className="text-3xl font-medium leading-tight dark:text-white">
+        {time}
+      </div>
     </div>
   );
 }
