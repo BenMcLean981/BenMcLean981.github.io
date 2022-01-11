@@ -33,7 +33,7 @@ export const darkModeReducer: React.Reducer<DarkModeState, DarkModeAction> = (
 };
 
 export function DarkModeProvider(props: React.PropsWithChildren<{}>) {
-  const systemDark = useMediaQuery("(preferes-color-scheme: dark)");
+  const systemDark = useMediaQuery("(prefers-color-scheme: dark)");
   const [storedDarkMode, setStoredDarkMode] = useLocalStorage(
     "storedDarkMode",
     systemDark ? "true" : "false"

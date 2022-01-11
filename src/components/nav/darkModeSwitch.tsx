@@ -8,7 +8,7 @@ export function DarkModeSwitch() {
 
   return (
     <div className="flex items-center gap-x-2">
-      <div
+      <button
         className="w-10 h-5 flex items-center bg-gray-400 rounded-full p-1 cursor-pointer"
         onClick={() => dispatchDarkMode({ type: "TOGGLE" })}
       >
@@ -19,7 +19,7 @@ export function DarkModeSwitch() {
             (darkMode ? " transform translate-x-4 bg-slate-900" : null)
           }
         />
-      </div>
+      </button>
       {darkModeLabel}
     </div>
   );
