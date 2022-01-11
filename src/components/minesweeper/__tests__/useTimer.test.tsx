@@ -60,8 +60,8 @@ describe("useTimer.", () => {
     const { result } = renderHook(() => useTimer());
     expect(result.current.seconds).toBe(0);
 
-    result.current.enable();
     act(() => {
+      result.current.enable();
       jest.advanceTimersByTime(1000);
     });
     expect(result.current.seconds).toBeCloseTo(1, 8);
@@ -71,5 +71,38 @@ describe("useTimer.", () => {
     });
     expect(result.current.seconds).toBe(0);
     expect(result.current.isEnabled).toBe(false);
+  });
+
+  it("Formats correctly for seconds < 10.", () => {
+    const { result } = renderHook(() => useTimer());
+    expect(result.current.seconds).toBe(0);
+
+    act(() => {
+      result.current.enable();
+      jest.advanceTimersByTime(1234);
+    });
+    expect(result.current.format()).toBe("1.2");
+  });
+
+  it("Formats correctly for 10 < seconds < 60.", () => {
+    const { result } = renderHook(() => useTimer());
+    expect(result.current.seconds).toBe(0);
+
+    act(() => {
+      result.current.enable();
+      jest.advanceTimersByTime(12345);
+    });
+    expect(result.current.format()).toBe("12.3");
+  });
+
+  it("Formats correctly seconds > 60.", () => {
+    const { result } = renderHook(() => useTimer());
+    expect(result.current.seconds).toBe(0);
+
+    act(() => {
+      result.current.enable();
+      jest.advanceTimersByTime(123456);
+    });
+    expect(result.current.format()).toBe("2:03.4");
   });
 });
