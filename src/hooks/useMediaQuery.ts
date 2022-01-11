@@ -6,13 +6,16 @@ export function useMediaQuery(query: string): boolean {
   );
 
   useEffect(() => {
-    const media = window.matchMedia(query);
-    if (media.matches !== matches) setMatches(media.matches);
+    function updateMatches() {
+      const media = window.matchMedia(query);
+      if (media.matches !== matches) setMatches(media.matches);
+    }
 
-    const listener = () => setMatches(media.matches);
-    window.addEventListener("resize", listener);
+    updateMatches();
 
-    return () => window.removeEventListener("resize", listener);
+    window.addEventListener("resize", updateMatches);
+
+    return () => window.removeEventListener("resize", updateMatches);
   }, [query, matches]);
 
   return matches;
