@@ -1,21 +1,28 @@
+import { useDarkMode } from "../utils/darkMode/useDarkMode";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 export function DarkModeSwitch() {
-  const systemDark = useMediaQuery("query") ? "true" : "false";
-  const [darkMode, setDarkMode] = useLocalStorage("darkMode", systemDark);
-  const oppositeDarkMode = darkMode === "true" ? "false" : "true";
+  const [darkMode, dispatchDarkMode] = useDarkMode();
+
+  // show sun or moon icon
+  const darkModeLabel = darkMode ? "🌙" : "☀️";
 
   return (
-    <div className="flex justify-center">
-      <label className="inline-flex items-center cursor-pointer">
-        <input
-          type="checkbox"
-          className=""
-          checked={darkMode === "true"}
-          onClick={() => setDarkMode(oppositeDarkMode)}
+    <div className="flex items-center gap-x-2">
+      <div
+        className="w-10 h-5 flex items-center bg-gray-400 rounded-full p-1 cursor-pointer"
+        onClick={() => dispatchDarkMode({ type: "toggle" })}
+      >
+        <div
+          onClick={(e) => e.preventDefault()}
+          className={
+            "bg-black h-4 w-4 rounded-full shadow-md transform duration-300 ease-in-out" +
+            (darkMode ? " transform translate-x-4 bg-slate-900" : null)
+          }
         />
-      </label>
+      </div>
+      {darkModeLabel}
     </div>
   );
 }

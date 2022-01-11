@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export function useLocalStorage(
   key: string,
   defaultValue: string
-): [string, (value: string) => void] {
+): [string, React.Dispatch<React.SetStateAction<string>>] {
   function getLocalStorage(key: string, defaultValue: string): string {
     const item = window.localStorage.getItem(key);
 
@@ -15,14 +15,6 @@ export function useLocalStorage(
   }
 
   const [value, setValue] = useState(() => getLocalStorage(key, defaultValue));
-
-  useEffect(() => {
-    setInterval(() => setValue(getLocalStorage(key, defaultValue)), 10);
-    /**
-     * I'm sceptical of the performance impact of this.
-     * Profiling revealed that there is a negligable impact (except for when changing)
-     */
-  });
 
   useEffect(() => {
     window.localStorage.setItem(key, value);

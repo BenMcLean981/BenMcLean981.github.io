@@ -1,12 +1,12 @@
+import { DarkModeProvider } from "./components/utils/darkMode/darkModeContext";
 import Nav from "./components/nav/nav";
-import { useDarkMode } from "./hooks/useDarkMode";
 
 export function App() {
-  useDarkMode();
-
   return (
     <div className="">
-      <Nav />
+      <DarkModeProvider>
+        <Nav />
+      </DarkModeProvider>
     </div>
   );
 }

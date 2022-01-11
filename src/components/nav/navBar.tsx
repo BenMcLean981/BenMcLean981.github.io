@@ -36,7 +36,7 @@ export function NavBar() {
     <div>
       <nav className="bg-gray-800 shadow-lg" ref={navRef}>
         <div className="mx-auto px-4">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <DesktopNav />
             <DarkModeSwitch />
             <MobileDropdownButton
