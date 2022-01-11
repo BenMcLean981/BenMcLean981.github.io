@@ -21,10 +21,10 @@ export function NavBar() {
   const menuRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (mobileOpen) menuRef.current?.classList.add("hidden");
-    else menuRef.current?.classList.remove("hidden");
-  }, [mobileOpen]);
+  // useEffect(() => {
+  //   if (mobileOpen) menuRef.current?.classList.add("hidden");
+  //   else menuRef.current?.classList.remove("hidden");
+  // }, [mobileOpen]);
 
   function forceClose() {
     setMobileOpen(false);
@@ -38,16 +38,20 @@ export function NavBar() {
         <div className="mx-auto px-4">
           <div className="flex justify-between items-center">
             <DesktopNav />
-            <DarkModeSwitch />
-            <MobileDropdownButton
-              handleToggle={() => setMobileOpen((open) => !open)}
-              open={mobileOpen}
-            />
+            <div className="flex justify-end items-center gap-x-2">
+              <DarkModeSwitch />
+              <MobileDropdownButton
+                handleToggle={() => setMobileOpen((open) => !open)}
+                open={mobileOpen}
+              />
+            </div>
           </div>
         </div>
-        <div className="md:hidden hidden mobile-menu" ref={menuRef}>
-          <MobileNavDropdown />
-        </div>
+        {mobileOpen && (
+          <div className="mobile-menu md:hidden" ref={menuRef}>
+            <MobileNavDropdown />
+          </div>
+        )}
       </nav>
     </div>
   );

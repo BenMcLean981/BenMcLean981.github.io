@@ -49,7 +49,7 @@ export function MinesweeperTileButton(props: TileProps) {
   }
 
   const baseClass =
-    "w-full aspect-square border border-neutral-500 rounded-sm font-mono text-2xl";
+    "w-full aspect-square border border-neutral-500 rounded-sm font-mono sm:text-md md:text-md lg:text-lg xl:text-xl ";
 
   return (
     <button
