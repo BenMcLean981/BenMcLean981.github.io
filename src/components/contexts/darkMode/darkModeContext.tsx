@@ -6,9 +6,9 @@ import { useMediaQuery } from "../../../hooks/useMediaQuery";
 export type DarkModeState = boolean;
 
 export type DarkModeAction =
-  | { type: "toggle" }
-  | { type: "enable" }
-  | { type: "disable" };
+  | { type: "TOGGLE" }
+  | { type: "ENABLE" }
+  | { type: "DISABLE" };
 
 export type DarkModeDispatch = (action: DarkModeAction) => void;
 
@@ -23,20 +23,21 @@ export const darkModeReducer: React.Reducer<DarkModeState, DarkModeAction> = (
   action
 ) => {
   switch (action.type) {
-    case "toggle":
+    case "TOGGLE":
       return !state;
-    case "enable":
+    case "ENABLE":
       return true;
-    case "disable":
+    case "DISABLE":
       return false;
-    default:
-      return state;
   }
 };
 
 export function DarkModeProvider(props: React.PropsWithChildren<{}>) {
-  const systemDark = useMediaQuery("query") ? "true" : "false";
-  const [storedDarkMode] = useLocalStorage("storedDarkMode", systemDark);
+  const systemDark = useMediaQuery("(preferes-color-scheme: dark)");
+  const [storedDarkMode, setStoredDarkMode] = useLocalStorage(
+    "storedDarkMode",
+    systemDark ? "true" : "false"
+  );
 
   const [darkMode, dispatchDarkMode] = React.useReducer(
     darkModeReducer,
@@ -44,9 +45,11 @@ export function DarkModeProvider(props: React.PropsWithChildren<{}>) {
   );
 
   React.useEffect(() => {
+    setStoredDarkMode(darkMode ? "true" : "false");
+
     if (darkMode) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
-  }, [darkMode]);
+  }, [darkMode, setStoredDarkMode]);
 
   return (
     <darkModeContext.Provider value={[darkMode, dispatchDarkMode]}>

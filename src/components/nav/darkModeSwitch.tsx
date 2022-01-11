@@ -1,6 +1,4 @@
-import { useDarkMode } from "../utils/darkMode/useDarkMode";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useDarkMode } from "../contexts/darkMode/useDarkMode";
 
 export function DarkModeSwitch() {
   const [darkMode, dispatchDarkMode] = useDarkMode();
@@ -12,7 +10,7 @@ export function DarkModeSwitch() {
     <div className="flex items-center gap-x-2">
       <div
         className="w-10 h-5 flex items-center bg-gray-400 rounded-full p-1 cursor-pointer"
-        onClick={() => dispatchDarkMode({ type: "toggle" })}
+        onClick={() => dispatchDarkMode({ type: "TOGGLE" })}
       >
         <div
           onClick={(e) => e.preventDefault()}

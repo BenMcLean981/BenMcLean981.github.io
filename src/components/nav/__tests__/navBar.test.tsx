@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
+import { DarkModeProvider } from "../../contexts/darkMode/darkModeContext";
 import { MemoryRouter } from "react-router";
 import { NavBar } from "../navBar";
 import React from "react";
@@ -34,9 +35,11 @@ beforeEach(() => {
 describe("navBar.", () => {
   it("uses the button to change the state", () => {
     render(
-      <MemoryRouter>
-        <NavBar />
-      </MemoryRouter>
+      <DarkModeProvider>
+        <MemoryRouter>
+          <NavBar />
+        </MemoryRouter>
+      </DarkModeProvider>
     );
 
     const button = screen.getByRole("button");
