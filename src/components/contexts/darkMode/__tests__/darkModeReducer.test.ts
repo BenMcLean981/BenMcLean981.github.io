@@ -1,4 +1,4 @@
-import { darkModeReducer } from "../darkModeContext";
+import { darkModeReducer } from "../darkModeReducer";
 
 describe("darkModeReducer.", () => {
   it("toggles correctly.", () => {
