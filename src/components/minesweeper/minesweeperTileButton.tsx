@@ -27,7 +27,7 @@ export function MinesweeperTileButton(props: TileProps) {
   }
 
   function getTextColorClass(): string {
-    if (tile.nAdjMines === 1) return "text-blue-600";
+    if (tile.nAdjMines === 1) return "dark:text-blue-600 text-blue-700";
     else if (tile.nAdjMines === 2) return "text-green-500";
     else if (tile.nAdjMines === 3) return "text-red-700";
     else if (tile.nAdjMines === 4) return "text-blue-900";

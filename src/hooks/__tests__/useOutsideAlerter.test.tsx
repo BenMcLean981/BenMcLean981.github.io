@@ -8,7 +8,7 @@ describe("useOutsideAlerter.test.tsx", () => {
     const ref = React.createRef<HTMLDivElement>();
     const callback = jest.fn();
     const wrapper = ({ children }: { children: React.ReactChildren }) => (
-      <div>{children}</div>
+      <div ref={ref}>{children}</div>
     );
     const { result } = renderHook(() => useOutsideAlterter(ref, callback), {
       wrapper,

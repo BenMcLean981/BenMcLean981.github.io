@@ -20,7 +20,9 @@ export function DarkModeSwitch() {
           }
         />
       </button>
-      {darkModeLabel}
+      <button onClick={() => dispatchDarkMode({ type: "TOGGLE" })}>
+        <span>{darkModeLabel}</span>
+      </button>
     </div>
   );
 }

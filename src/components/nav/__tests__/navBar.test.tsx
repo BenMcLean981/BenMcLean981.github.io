@@ -42,7 +42,7 @@ describe("navBar.", () => {
       </DarkModeProvider>
     );
 
-    const button = screen.getAllByRole("button")[1];
+    const button = screen.getByTestId("test-button");
     expect(button).not.toBeNull();
 
     expect(button).toHaveTextContent("closed");

@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 
 export function useLocalStorage(
   key: string,
-  defaultValue: string
-): [string, React.Dispatch<React.SetStateAction<string>>] {
-  function getLocalStorage(key: string, defaultValue: string): string {
+  defaultValue?: string
+): [string | null, React.Dispatch<React.SetStateAction<string | null>>] {
+  function getLocalStorage(key: string, defaultValue?: string): string | null {
     const item = window.localStorage.getItem(key);
 
     if (item) return item;
-    else {
-      window.localStorage.setItem(key, defaultValue);
-      return defaultValue;
-    }
+    else if (defaultValue !== undefined) return defaultValue;
+    else return null;
   }
 
   const [value, setValue] = useState(getLocalStorage(key, defaultValue));
 
   useEffect(() => {
-    window.localStorage.setItem(key, value);
+    if (value === null) window.localStorage.removeItem(key);
+    else window.localStorage.setItem(key, value);
   }, [key, value]);
 
   return [value, setValue];

@@ -187,7 +187,8 @@ describe("TileComponent", () => {
 
       const button = screen.getByRole("button");
       expect(button).toBeInTheDocument();
-      expect(button).toHaveClass("text-blue-600");
+      expect(button).toHaveClass("text-blue-700");
+      expect(button).toHaveClass("dark:text-blue-600");
     });
 
     it("Returns text-green-500 for 2.", () => {

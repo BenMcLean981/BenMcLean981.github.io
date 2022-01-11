@@ -1,3 +1,4 @@
+import React, { ReactElement } from "react";
 import { render, screen } from "@testing-library/react";
 
 import { DarkModeProvider } from "../../../components/contexts/darkMode/darkModeProvider";
@@ -20,14 +21,33 @@ beforeEach(() => {
 });
 
 describe("darkModeSwitch.", () => {
-  it("renders the button.", () => {
-    const wrapper = ({ children }) => (
+  it("renders both buttons.", () => {
+    const wrapper = ({ children }: { children: ReactElement }) => (
       <DarkModeProvider>{children}</DarkModeProvider>
     );
 
     render(<DarkModeSwitch />, { wrapper });
 
-    const button = screen.getByRole("button");
-    expect(button).toBeInTheDocument();
+    const buttons = screen.getAllByRole("button");
+
+    expect(buttons.length).toBe(2);
+  });
+
+  it("Renders correct icon.", () => {
+    const wrapper = ({ children }: { children: ReactElement }) => (
+      <DarkModeProvider>{children}</DarkModeProvider>
+    );
+
+    render(<DarkModeSwitch />, { wrapper });
+
+    expect(screen.getByText("🌙")).toBeInTheDocument();
+
+    const buttons = screen.getAllByRole("button");
+    buttons[0].click();
+
+    expect(screen.getByText("☀️")).toBeInTheDocument();
+
+    buttons[1].click();
+    expect(screen.getByText("🌙")).toBeInTheDocument();
   });
 });
