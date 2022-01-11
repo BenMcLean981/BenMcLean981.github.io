@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { DarkModeProvider } from "../darkModeContext";
+import { DarkModeProvider } from "../darkModeProvider";
 import { renderHook } from "@testing-library/react-hooks";
 import { useDarkMode } from "../useDarkMode";
 

@@ -1,4 +1,4 @@
-import { DarkModeProvider } from "./components/contexts/darkMode/darkModeContext";
+import { DarkModeProvider } from "./components/contexts/darkMode/darkModeProvider";
 import Nav from "./components/nav/nav";
 
 export function App() {

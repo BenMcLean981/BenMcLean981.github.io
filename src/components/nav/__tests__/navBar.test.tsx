@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { DarkModeProvider } from "../../contexts/darkMode/darkModeContext";
+import { DarkModeProvider } from "../../contexts/darkMode/darkModeProvider";
 import { MemoryRouter } from "react-router";
 import { NavBar } from "../navBar";
 import React from "react";
@@ -42,7 +42,7 @@ describe("navBar.", () => {
       </DarkModeProvider>
     );
 
-    const button = screen.getByRole("button");
+    const button = screen.getAllByRole("button")[1];
     expect(button).not.toBeNull();
 
     expect(button).toHaveTextContent("closed");
