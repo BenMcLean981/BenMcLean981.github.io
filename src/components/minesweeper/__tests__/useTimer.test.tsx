@@ -1,5 +1,6 @@
-import { Timer, useTimer } from "../useTimer";
 import { act, renderHook } from "@testing-library/react-hooks";
+
+import { useTimer } from "../useTimer";
 
 describe("useTimer.", () => {
   beforeEach(() => {
@@ -65,7 +66,9 @@ describe("useTimer.", () => {
     });
     expect(result.current.seconds).toBeCloseTo(1, 8);
 
-    result.current.reset();
+    act(() => {
+      result.current.reset();
+    });
     expect(result.current.seconds).toBe(0);
     expect(result.current.isEnabled).toBe(false);
   });
