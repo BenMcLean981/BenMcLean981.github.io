@@ -84,7 +84,8 @@ export function Minesweeper() {
         <p className="dark:text-white">
           I decided to make a game of minesweeper in typescript. I chose
           minesweeper because more or less everyone knows the rules, so it
-          should be a good way to showcase my skills. Check out the code{" "}
+          should be a good way to showcase my frontend and systems skills. Check
+          out the code{" "}
           <a
             className="underline text-blue-500"
             href="https://github.dev/BenMcLean981/BenMcLean981.github.io/blob/main/src/pages/minesweeper.tsx"
