@@ -5,7 +5,7 @@ import { DesktopNav } from "./desktop/DesktopNav";
 import { MobileDropdownButton } from "./mobile/mobileDropdownButton";
 import { MobileNavDropdown } from "./mobile/mobileNavDropdown";
 import { NavRoute } from "./navRoute";
-import { useOutsideAlterter } from "../../hooks/useOutsideAlerter";
+import { useOutsideAlerter } from "../../hooks/useOutsideAlerter";
 
 /**
  * Source:
@@ -25,13 +25,14 @@ export function NavBar() {
     setMobileOpen(false);
   }
 
-  useOutsideAlterter(navRef, forceClose);
+  useOutsideAlerter(navRef, forceClose);
 
   const homeRoute: NavRoute = { name: "Home", path: "/" };
 
   const routes: NavRoute[] = [
     { name: "Minesweeper", path: "/minesweeper" },
     { name: "Fluid Simulation", path: "/fluid-simulation" },
+    { name: "LaTeX", path: "/latex" },
   ];
 
   return (

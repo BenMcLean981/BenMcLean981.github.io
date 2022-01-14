@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import { useOutsideAlterter } from "../../hooks/useOutsideAlerter";
+import { useOutsideAlerter } from "../../hooks/useOutsideAlerter";
 
 describe("useOutsideAlerter.test.tsx", () => {
   it("does not run the callback when not clicked away.", () => {
@@ -10,7 +10,7 @@ describe("useOutsideAlerter.test.tsx", () => {
     const wrapper = ({ children }: { children: React.ReactChildren }) => (
       <div ref={ref}>{children}</div>
     );
-    const { result } = renderHook(() => useOutsideAlterter(ref, callback), {
+    const { result } = renderHook(() => useOutsideAlerter(ref, callback), {
       wrapper,
     });
 
@@ -31,7 +31,7 @@ describe("useOutsideAlerter.test.tsx", () => {
         <button />
       </div>
     );
-    const { result } = renderHook(() => useOutsideAlterter(ref, callback), {
+    const { result } = renderHook(() => useOutsideAlerter(ref, callback), {
       wrapper,
     });
 
