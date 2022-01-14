@@ -16,7 +16,7 @@ export function H2(props: React.PropsWithChildren<{}>) {
 
 export function H3(props: React.PropsWithChildren<{}>) {
   return (
-    <h3 className="text-3xl font-medium my-2 dark:text-white">
+    <h3 className="text-2xl font-medium my-2 dark:text-white">
       {props.children}
     </h3>
   );
