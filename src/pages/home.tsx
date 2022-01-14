@@ -2,6 +2,7 @@ import { H1, H2 } from "../components/utils/headings";
 import { OL, OLI } from "../components/utils/orderedList";
 import { UL, ULI } from "../components/utils/unorderedList";
 
+import { Divider } from "../components/utils/divider";
 import { Layout } from "../components/layout";
 import { P } from "../components/utils/paragraph";
 
@@ -21,7 +22,7 @@ export function Home() {
               hope to be able to use my skills to make a positive impact on the
               world.
             </P>
-            <hr className="my-4" />
+            <Divider />
 
             <H1>My Portfolio</H1>
             <P>
@@ -47,7 +48,7 @@ export function Home() {
             alt="Ben McLean"
           />
         </div>
-        <hr className="my-4" />
+        <Divider />
 
         <H1>My Passions</H1>
         <P>
@@ -65,8 +66,8 @@ export function Home() {
             <ULI>Robots and Automation</ULI>
           </UL>
         </P>
-        <hr className="my-4" />
-        <div className="flex justify-between gap-8">
+        <Divider />
+        <div className="flex flex-col lg:flex-row justify-between gap-8">
           <div>
             <H1>My Projects</H1>
             <P>
@@ -106,12 +107,12 @@ export function Home() {
             </P>
           </div>
           <img
-            className="w-6/12 object-contain"
+            className="lg:w-6/12 object-contain"
             src={process.env.PUBLIC_URL + "/images/snowplow.png"}
             alt="autonomous snowplow"
           />
         </div>
-        <hr className="my-4" />
+        <Divider />
         <div>
           <H1>Technologies</H1>
           <div>

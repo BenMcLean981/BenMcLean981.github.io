@@ -1,11 +1,14 @@
 import React, { useEffect, useReducer } from "react";
 
+import { Divider } from "../components/utils/divider";
 import { GameBanner } from "../components/minesweeper/gameBanner";
 import { GridSettings } from "../components/minesweeper/gridSettings";
+import { H1 } from "../components/utils/headings";
 import { Layout } from "components/layout";
 import { MinesweeperGrid } from "../components/minesweeper/grid";
 import { MinesweeperTile } from "components/minesweeper/tile";
 import { MinesweeperTileButton } from "components/minesweeper/minesweeperTileButton";
+import { P } from "../components/utils/paragraph";
 import { gridReducer } from "components/minesweeper/gridReducer";
 import { useTimer } from "../components/minesweeper/useTimer";
 
@@ -78,10 +81,8 @@ export function Minesweeper() {
   return (
     <Layout>
       <div className="mx-auto sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12 mt-4">
-        <h1 className="text-6xl font-medium leading-tight dark:text-white">
-          Minesweeper
-        </h1>
-        <p className="dark:text-white">
+        <H1>Minesweeper</H1>
+        <P>
           I decided to make a game of minesweeper in typescript. I chose
           minesweeper because more or less everyone knows the rules, so it
           should be a good way to showcase my frontend and systems skills. Check
@@ -94,8 +95,8 @@ export function Minesweeper() {
           >
             here!
           </a>
-        </p>
-        <hr className="mt-2" />
+        </P>
+        <Divider />
 
         <GameBanner grid={grid} onReset={handleRestart} timer={timer} />
         {gridComponent}
