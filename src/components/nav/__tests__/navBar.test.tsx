@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router";
 import { NavBar } from "../navBar";
 import React from "react";
 
-jest.mock("../mobileDropdownButton", () => ({
+jest.mock("../mobile/mobileDropdownButton", () => ({
   MobileDropdownButton: (props: {
     open: boolean;
     handleToggle: VoidFunction;
