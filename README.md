@@ -18,9 +18,9 @@ I chose React for the frontend, and I have some experience with it in the past. 
 
 I host my frontend as static files on Github Pages. As such, no back-end is needed. However, I am brainstorming a project which would require a backend.
 
-### Testing (React)
+### Testing (@Testing-library)
 
-I have never tested React before, and I believed this would be a good oportunity to do so. I am using the testing library with Create React App (CRA) and will be aiming to learn how to make good React tests, not necessarily just get high coverage.
+I have never tested React before, and I believed this would be a good oportunity to do so. I am using the testing library that ships with Create React App (CRA) and will be aiming to learn how to make good React tests. I have set a coverage target of 80%, though internally I try to write good maintainable tests for 100% coverage.
 
 ### CSS (Tailwind CSS)
 
@@ -32,7 +32,7 @@ I have made (mostly copied from a blog) a Github Actions CI/CD pipeline that wil
 
 ### Project Structure (Next inspired)
 
-I've worked with Next in the past and appreciated the fine split between pages and components, I've done the same here. Tests will be bundled directly next to components/pages/hooks instead of being placed in their on `__tests__` folder. The reason for this is I dont think building 2 seperate file trees in parallel is sustainable, I've done that in the past and found it difficult.
+I've worked with Next in the past and appreciated the fine split between pages and components, I've done the same here. I have three main folders in src (pages, components, hooks) Tests will be bundled with their respective modules. For example ./src/components/utils has a **tests** subfolder which contails tests for everything in ./src/components/utils folder.
 
 ### Running Dev Environment
 
