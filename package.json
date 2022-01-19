@@ -5,8 +5,10 @@
   "license": "UNLICENSED",
   "private": false,
   "dependencies": {
+    "prism-react-renderer": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-element-to-jsx-string": "^14.3.4",
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
     "seedrandom": "^3.0.5",
