@@ -16,9 +16,9 @@ export function Home() {
             My name is Ben McLean, I am 22 years old and am in my final year of
             University. I am in a double degree program at uOttawa, I am
             obtaining a B.Sc in Computing Technology and a B.A.Sc in Mechanical
-            Engineering. I am on track to graduate in May 2021. I love what I do
-            and am passionate about software engineering, and I hope to be able
-            to use my skills to make a positive impact on the world.
+            Engineering. I am on track to graduate in May 2022. I love what I do
+            and am passionate about software and engineering, and I hope to be
+            able to use my skills to make a positive impact on the world.
           </P>
           <Divider />
 
@@ -61,7 +61,7 @@ export function Home() {
           <ULI>Space Exploration</ULI>
           <ULI>Access to Education</ULI>
           <ULI>Sustainability</ULI>
-          <ULI>Robots and Automation</ULI>
+          <ULI>Robotics and Automation</ULI>
         </UL>
       </P>
       <Divider />
