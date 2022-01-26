@@ -80,7 +80,7 @@ export function Minesweeper() {
 
   return (
     <Layout>
-      <div className="mx-auto sm:w-10/12 md:w-9/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12 mt-4">
+      <div className="mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12 mt-4">
         <H1>Minesweeper</H1>
         <P>
           I decided to make a game of minesweeper in typescript. I chose

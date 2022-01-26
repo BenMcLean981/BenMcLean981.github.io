@@ -21,8 +21,10 @@
     "test:all": "react-scripts test --all --watchAll=false",
     "test:coverage": "react-scripts test --all --watchAll=false --coverage || exit 0",
     "eject": "react-scripts eject",
-    "predeploy": "yarn build && yarn test:all",
-    "deploy": "gh-pages -d build"
+    "analyze": "source-map-explorer 'build/static/js/*'",
+    "predeploy": "yarn build && yarn test:coverage && yarn check-images",
+    "deploy": "gh-pages -d build",
+    "check-images": "if [ $(du -a public/images/* | sort -n -r | head -n 1 | cut -f1) -gt 200 ]; then exit 1; else exit 0; fi"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +57,7 @@
     "gh-pages": "^3.2.3",
     "postcss": "^8.4.5",
     "react-scripts": "^5.0.0",
+    "source-map-explorer": "^2.5.2",
     "tailwindcss": "^3.0.12",
     "typescript": "^4.5.4"
   },

@@ -31,6 +31,9 @@ jobs:
       - name: Run tests
         run: yarn run test:coverage
 
+      - name: Check image sizes
+        run: yarn run check-images
+
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
         with:
