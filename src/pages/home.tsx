@@ -27,17 +27,22 @@ export function Home() {
             Before graduating, I decided it would be a good plan to make a
             portfolio of some open source projects I would like to work on.
             These projects were meant to be:
-            <UL>
-              <ULI>Complete</ULI>
-              <ULI>Interesting</ULI>
-              <ULI>Relevant to Software Engineering</ULI>
-            </UL>
+          </P>
+          <UL>
+            <ULI>Complete</ULI>
+            <ULI>Interesting</ULI>
+            <ULI>Relevant to Software Engineering</ULI>
+          </UL>
+          <P>
             I realized that a good way to showcase these projects would be with
             a nice Website, which itself would be an open source project. Thus,
             my portfolio was born! So far it is just a static site being hosted
             on Github pages, but I have written it in React, implemented a CI/CD
-            pipeline with automated tests, and put a few small projects on the
-            website.
+            pipeline with automated tests, and put a small project on the
+            website. I have plans to expand it and add more projects to it. I
+            want the projects to be simple enough that a reader can figure out
+            what they do in a few minutes, but unique and complicated enough
+            that they show diversity and depth of skill.
           </P>
         </div>
         <img
@@ -56,53 +61,55 @@ export function Home() {
         I can make a positive impact in the world with my talent and with good
         software, and I am most interested in working in the following fields
         and solving the following problems:
-        <UL>
-          <ULI>Climate Change</ULI>
-          <ULI>Space Exploration</ULI>
-          <ULI>Access to Education</ULI>
-          <ULI>Sustainability</ULI>
-          <ULI>Robotics and Automation</ULI>
-        </UL>
       </P>
+      <UL>
+        <ULI>Climate Change</ULI>
+        <ULI>Space Exploration</ULI>
+        <ULI>Access to Education</ULI>
+        <ULI>Sustainability</ULI>
+        <ULI>Robotics and Automation</ULI>
+      </UL>
       <Divider />
       <div className="flex flex-col lg:flex-row justify-between gap-8">
         <div>
           <H1>My Projects</H1>
           <P>
             I have a few projects I'm working on right now, some of them are:
-            <UL>
-              <ULI>
-                This Website, I don't think I am particularly good at front-end
-                work, but I am working on it! I think this website is a good
-                opportunity for me to improve. I think that responsiveness, and
-                snappiness are very important, and that is what I've optimized
-                for.
-              </ULI>
-              <ULI>
-                OAVG's Autonomous Snowplow (shown here). I did a lot of the
-                manufacturing and assembly work. I also helped to document the
-                electrical and mechanical design of the robot.
-              </ULI>
-            </UL>
-            <br />I have a few other past projects I've worked on which I'm
-            proud of enough to mention here:
-            <UL>
-              <ULI>
-                My capstone project: we were tasked with designing a deep-water
-                decontamination device. The device was designed to capable of
-                removing barrels of waste at depths up to 3000m. We were
-                required to do all the necessary design, analysis, and reporting
-                work.
-              </ULI>
-              <ULI>
-                My co-op project: I can't get into too much detail, but I've
-                been working on a sort of ERP system for a machine my employer
-                sells to fabricators. I have a React app, a library that handles
-                a lot of the mathematical computation, and a kubernetes cluster
-                in the cloud that handles storage.
-              </ULI>
-            </UL>
           </P>
+          <UL>
+            <ULI>
+              This Website, I don't think I am particularly good at front-end
+              work, but I am working on it! I think this website is a good
+              opportunity for me to improve. I think that responsiveness, and
+              snappiness are very important, and that is what I've optimized
+              for.
+            </ULI>
+            <ULI>
+              OAVG's Autonomous Snowplow (shown here). I did a lot of the
+              manufacturing and assembly work. I also helped to document the
+              electrical and mechanical design of the robot.
+            </ULI>
+          </UL>
+
+          <P>
+            I have a few other past projects I've worked on which I'm proud of
+            enough to mention here:
+          </P>
+          <UL>
+            <ULI>
+              My capstone project: we were tasked with designing a deep-water
+              decontamination device. The device was designed to capable of
+              removing barrels of waste at depths up to 3000m. We were required
+              to do all the necessary design, analysis, and reporting work.
+            </ULI>
+            <ULI>
+              My co-op project: I can't get into too much detail, but I've been
+              working on a sort of ERP system for a machine my employer sells to
+              fabricators. I have a React app, a library that handles a lot of
+              the mathematical computation, and a kubernetes cluster in the
+              cloud that handles storage.
+            </ULI>
+          </UL>
         </div>
         <img
           className="lg:w-6/12 object-contain"
