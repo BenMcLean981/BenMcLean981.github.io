@@ -1,4 +1,4 @@
-import { H1, H4, H5 } from "../utils/headings";
+import { H4, H5 } from "../utils/headings";
 import React, { PropsWithChildren, useRef, useState } from "react";
 
 import { Divider } from "../utils/divider";
