@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 
+import { ContactCard } from "../contactModal/contactModal";
 import { DarkModeSwitch } from "./darkModeSwitch";
 import { DesktopNav } from "./desktop/DesktopNav";
 import { MobileDropdownButton } from "./mobile/mobileDropdownButton";
@@ -32,7 +33,6 @@ export function NavBar() {
   const routes: NavRoute[] = [
     { name: "Minesweeper", path: "/minesweeper" },
     { name: "Fluid Simulation", path: "/fluid-simulation" },
-    { name: "LaTeX", path: "/latex" },
   ];
 
   return (
@@ -40,8 +40,15 @@ export function NavBar() {
       <nav className="bg-gray-800 shadow-lg" ref={navRef}>
         <div className="mx-auto px-4">
           <div className="flex justify-between items-center">
-            <DesktopNav routes={routes} homeRoute={homeRoute} />
-            <div className="flex justify-end items-center gap-x-2">
+            <div>
+              <DesktopNav routes={routes} homeRoute={homeRoute} />
+            </div>
+            <div className="flex justify-end w-full md:w-auto items-center gap-x-6 my-6">
+              <ContactCard>
+                <span className="font-semibold text-gray-500 text-lg hover:text-blue-500 transition duration-300">
+                  Contact
+                </span>
+              </ContactCard>
               <DarkModeSwitch />
               <MobileDropdownButton
                 handleToggle={() => setMobileOpen((open) => !open)}

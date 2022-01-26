@@ -85,9 +85,17 @@ export function Home() {
               for.
             </ULI>
             <ULI>
-              OAVG's Autonomous Snowplow (shown here). I did a lot of the
-              manufacturing and assembly work. I also helped to document the
-              electrical and mechanical design of the robot.
+              <a
+                className="underline text-blue-500"
+                href="https://ottawaavgroup.square.site/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                OAVG's Autonomous Snowplow
+              </a>{" "}
+              (shown here). I did a lot of the manufacturing and assembly work.
+              I also helped to document the electrical and mechanical design of
+              the robot.
             </ULI>
           </UL>
 

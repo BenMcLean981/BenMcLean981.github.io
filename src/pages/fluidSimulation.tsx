@@ -1,4 +1,4 @@
-import { H1, H2, H3 } from "../components/utils/headings";
+import { H1, H3 } from "../components/utils/headings";
 
 import { Divider } from "../components/utils/divider";
 import { Layout } from "../components/layout";
@@ -11,10 +11,9 @@ export function FluidSimulation() {
       <P>
         I've been fascinated with the idea of building a fluid simulator for
         quite some time now. My plan is to build it in Typescript, and render it
-        as a canvas in React.
-        <br />
-        Because this is going to be a large project, I'm going to be making a
-        sort of blog to go along with it.
+        as a canvas in React. Because this is going to be a large project, I'm
+        going to be making a sort of blog to go along with it. Current this
+        project is in it's <strong>research stage</strong>.
       </P>
       <Divider />
       <H3>Side-Note: LaTeX Component</H3>
@@ -23,8 +22,6 @@ export function FluidSimulation() {
         planning. To do this, I'm going to make a LaTeX component which will be
         a mini-project in and of itself.
       </P>
-      <Divider />
-      <H2>Conservation Laws</H2>
     </Layout>
   );
 }
