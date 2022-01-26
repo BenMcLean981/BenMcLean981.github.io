@@ -9,4 +9,19 @@ import { MutableRefObject, useEffect } from "react";
 export function useOutsideAlerter(
   ref: MutableRefObject<null | HTMLElement | SVGElement>,
   callback: VoidFunction
-) {}
+) {
+  useEffect(() => {
+    function alertOutside(e: MouseEvent | TouchEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        callback();
+      }
+    }
+
+    document.addEventListener("mousedown", alertOutside);
+    document.addEventListener("touchstart", alertOutside);
+    return () => {
+      document.removeEventListener("mousedown", alertOutside);
+      document.removeEventListener("touchstart", alertOutside);
+    };
+  }, [ref, callback]);
+}
