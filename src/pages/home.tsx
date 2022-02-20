@@ -2,6 +2,7 @@ import { H1, H2 } from "../components/utils/headings";
 import { OL, OLI } from "../components/utils/orderedList";
 import { UL, ULI } from "../components/utils/unorderedList";
 
+import { A } from "../components/utils/link";
 import { Divider } from "../components/utils/divider";
 import { Layout } from "../components/layout";
 import { P } from "../components/utils/paragraph";
@@ -78,27 +79,34 @@ export function Home() {
           </P>
           <UL>
             <ULI>
-              This Website, I don't think I am particularly good at front-end
-              work, but I am working on it! I think this website is a good
-              opportunity for me to improve. I think that responsiveness, and
+              This Website, the goal is to create a nice, responsive website
+              with interesting projects. I think that responsiveness, and
               snappiness are very important, and that is what I've optimized
-              for.
+              for. This website is open sourced and deployed to GitHub Pages. It
+              is written in React, tested with Jest and React-Testing-Library.
+              You can view and clone the repository{" "}
+              <A
+                href="https://github.com/BenMcLean981/BenMcLean981.github.io"
+                target="_blank"
+                rel="noreferrer"
+              >
+                here!
+              </A>
             </ULI>
             <ULI>
-              <a
-                className="underline text-blue-500"
+              <A
                 href="https://ottawaavgroup.square.site/"
                 target="_blank"
                 rel="noreferrer"
               >
                 OAVG's Autonomous Snowplow
-              </a>{" "}
+              </A>{" "}
               (shown here). I did a lot of the manufacturing and assembly work.
               I also helped to document the electrical and mechanical design of
               the robot.
             </ULI>
           </UL>
-
+          <Divider />
           <P>
             I have a few other past projects I've worked on which I'm proud of
             enough to mention here:
@@ -111,11 +119,14 @@ export function Home() {
               to do all the necessary design, analysis, and reporting work.
             </ULI>
             <ULI>
-              My co-op project: I can't get into too much detail, but I've been
-              working on a sort of ERP system for a machine my employer sells to
-              fabricators. I have a React app, a library that handles a lot of
-              the mathematical computation, and a kubernetes cluster in the
-              cloud that handles storage.
+              My co-op project: Because of confidentiality issues, I'm unable to
+              disclose the full details of the project, but I've been working on
+              an ERP system for a machine my employer sells to fabricators. I
+              have a React app, a library that handles a lot of the mathematical
+              computation, a kubernetes cluster on Azure cloud for storage. And
+              a Javascript backend application for CRUD operations. I also
+              maintain a Flask application that uses SQLAlchemy on an SQLite
+              database to render templates for displaying reports.
             </ULI>
           </UL>
         </div>
