@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router";
+import { Route, Routes } from "react-router";
 
 import { BrowserRouter } from "react-router-dom";
 import { Home } from "../../pages/home";
@@ -8,13 +8,11 @@ export function MyRouter(props: PropsWithChildren<{}>) {
   return (
     <BrowserRouter>
       {props.children}
-      <Switch>
+      <Routes>
         <Route path="/resume">Resume</Route>
         <Route path="/minesweeper">Minesweeper</Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </BrowserRouter>
   );
 }

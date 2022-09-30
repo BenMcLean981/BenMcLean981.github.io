@@ -4,6 +4,7 @@ import {
   getNeighboringPositions,
   isPositionEqual,
 } from "./position";
+
 const seedrandom = require("seedrandom");
 
 describe("isPositionEqual", () => {
