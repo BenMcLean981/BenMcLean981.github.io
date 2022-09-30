@@ -1,18 +1,20 @@
 import { Route, Routes } from "react-router";
 
-import { BrowserRouter } from "react-router-dom";
+import { FluidSimulation } from "../../pages/fluidSimulation";
+import { HashRouter } from "react-router-dom";
 import { Home } from "../../pages/home";
-import { PropsWithChildren } from "react";
+import { Minesweeper } from "../../pages/minesweeper";
 
-export function MyRouter(props: PropsWithChildren<{}>) {
+export function MyRouter() {
   return (
-    <BrowserRouter>
-      {props.children}
+    <HashRouter>
       <Routes>
-        <Route path="/resume">Resume</Route>
-        <Route path="/minesweeper">Minesweeper</Route>
         <Route path="/" element={<Home />} />
+        <Route path="/minesweeper" element={<Minesweeper />}>
+          Minesweeper
+        </Route>
+        <Route path="/fluid-simulation" element={<FluidSimulation />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

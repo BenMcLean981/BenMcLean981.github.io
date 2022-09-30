@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
-import { DesktopNav } from "./DesktopNav";
-import { MobileDropdown } from "./mobileDropdown";
-import { MobileNav } from "./mobileNav";
-import { useOutsideAlterter } from "../../hooks/useOutsideAlerter";
+import { ContactCard } from "../contactModal/contactModal";
+import { DarkModeSwitch } from "./darkModeSwitch";
+import { DesktopNav } from "./desktop/DesktopNav";
+import { MobileDropdownButton } from "./mobile/mobileDropdownButton";
+import { MobileNavDropdown } from "./mobile/mobileNavDropdown";
+import { NavRoute } from "./navRoute";
+import { useOutsideAlerter } from "../../hooks/useOutsideAlerter";
 
 /**
  * Source:
@@ -19,33 +22,46 @@ export function NavBar() {
 
   const menuRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (mobileOpen) menuRef.current?.classList.add("hidden");
-    else menuRef.current?.classList.remove("hidden");
-  }, [mobileOpen]);
-
   function forceClose() {
     setMobileOpen(false);
   }
 
-  useOutsideAlterter(navRef, forceClose);
+  useOutsideAlerter(navRef, forceClose);
+
+  const homeRoute: NavRoute = { name: "Home", path: "/" };
+
+  const routes: NavRoute[] = [
+    { name: "Minesweeper", path: "/minesweeper" },
+    { name: "Fluid Simulation", path: "/fluid-simulation" },
+  ];
 
   return (
     <div>
       <nav className="bg-gray-800 shadow-lg" ref={navRef}>
         <div className="mx-auto px-4">
-          <div className="flex justify-between">
-            <DesktopNav />
-            <MobileDropdown
-              handleToggle={() => setMobileOpen((open) => !open)}
-              open={mobileOpen}
-            />
+          <div className="flex justify-between items-center">
+            <div>
+              <DesktopNav routes={routes} homeRoute={homeRoute} />
+            </div>
+            <div className="flex justify-end w-full md:w-auto items-center gap-x-6 my-6">
+              <ContactCard>
+                <span className="font-semibold text-gray-500 text-lg hover:text-blue-500 transition duration-300">
+                  Contact
+                </span>
+              </ContactCard>
+              <DarkModeSwitch />
+              <MobileDropdownButton
+                handleToggle={() => setMobileOpen((open) => !open)}
+                open={mobileOpen}
+              />
+            </div>
           </div>
         </div>
-        <div className="md:hidden hidden mobile-menu" ref={menuRef}>
-          <MobileNav />
-        </div>
+        {mobileOpen && (
+          <div className="mobile-menu md:hidden" ref={menuRef}>
+            <MobileNavDropdown routes={routes} />
+          </div>
+        )}
       </nav>
     </div>
   );

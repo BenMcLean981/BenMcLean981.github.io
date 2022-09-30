@@ -1,11 +1,11 @@
-import { mergeClasses } from "../../utils/mergeClasses";
+import { mergeClasses } from "../../../utils/mergeClasses";
 
 interface Props {
   handleToggle: VoidFunction;
   open: boolean;
 }
 
-export function MobileDropdown(props: Props) {
+export function MobileDropdownButton(props: Props) {
   function getButtonColor(): string {
     const base = "w-6 h-6 transition duration-300";
 
@@ -20,6 +20,7 @@ export function MobileDropdown(props: Props) {
         onClick={props.handleToggle}
       >
         <svg
+          role="img"
           className={getButtonColor()}
           x-show="!showMenu"
           fill="none"

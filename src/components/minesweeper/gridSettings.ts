@@ -1,10 +1,10 @@
-export type GridSize = {
+export type GridSettings = {
   rows: number;
   cols: number;
   mines: number;
 };
 
-export function validateGridSize(size: GridSize): boolean {
+export function validateGridSettings(size: GridSettings): boolean {
   const numCells = size.rows * size.cols;
 
   return size.mines < numCells;
