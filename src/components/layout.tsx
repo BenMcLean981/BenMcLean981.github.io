@@ -5,7 +5,7 @@ export function Layout(props: PropsWithChildren<{}>) {
   return (
     <div>
       <NavBar />
-      <div className="pb-24 container mx-auto pt-2">{props.children}</div>
+      <div className="pb-24 container mx-auto p-2">{props.children}</div>
     </div>
   );
 }

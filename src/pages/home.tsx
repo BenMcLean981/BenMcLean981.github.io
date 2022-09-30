@@ -7,51 +7,59 @@ import { Divider } from "../components/utils/divider";
 import { Layout } from "../components/layout";
 import { P } from "../components/utils/paragraph";
 
+function getAgeInYears() {
+  const DATE_OF_BIRTH = new Date(1999, 2, 19);
+  const today = new Date();
+  const milliseconds = today.getTime() - DATE_OF_BIRTH.getTime();
+  const years = milliseconds / 1000 / 3600 / 24 / 365;
+
+  return Math.floor(years);
+}
+
 export function Home() {
   return (
     <Layout>
-      <div className="flex justify-between gap-8">
-        <div>
-          <H1>All About Me</H1>
-          <P>
-            My name is Ben McLean, I am 22 years old and am in my final year of
-            University. I am in a double degree program at uOttawa, I am
-            obtaining a B.Sc in Computing Technology and a B.A.Sc in Mechanical
-            Engineering. I am on track to graduate in April 2022. I love what I
-            do and am passionate about software and engineering, and I hope to
-            be able to use my skills to make a positive impact on the world.
-          </P>
-          <Divider />
+      <p className="text-center text-md font-medium dark:text-white italic">
+        The views expressed on this website are mine alone and do not
+        necessarily reflect the views of my employer.
+      </p>
+      <hr className="my-2" />
+      <H1>All About Me</H1>
+      <P>
+        My name is Ben McLean, I am {getAgeInYears()} years old and am employed
+        as a software developer at Inovatech Engineering, a Lincoln Electric
+        company. I write mostly TypeScript industrial applications, but also do
+        some .NET as well. In June 2022 I graduated Cum Laude from the
+        University of Ottawa. I completed a double degree in which I studied
+        Mechanical Engineering and Computing Technology. I participated in the
+        co-op program where I discovered that I greatly enjoy writing software.
+        I am passionate about software and engineering, and I hope to be able to
+        use my skills to make a positive impact on the world.
+      </P>
+      <Divider />
 
-          <H1>My Portfolio</H1>
-          <P>
-            Before graduating, I decided it would be a good plan to make a
-            portfolio of some open source projects I would like to work on.
-            These projects were meant to be:
-          </P>
-          <UL>
-            <ULI>Complete</ULI>
-            <ULI>Interesting</ULI>
-            <ULI>Relevant to Software Engineering</ULI>
-          </UL>
-          <P>
-            I realized that a good way to showcase these projects would be with
-            a nice Website, which itself would be an open source project. Thus,
-            my portfolio was born! So far it is just a static site being hosted
-            on Github pages, but I have written it in React, implemented a CI/CD
-            pipeline with automated tests, and put a small project on the
-            website. I have plans to expand it and add more projects to it. I
-            want the projects to be simple enough that a reader can figure out
-            what they do in a few minutes, but unique and complicated enough
-            that they show diversity and depth of skill.
-          </P>
-        </div>
-        <img
-          className="w-3/12 object-contain"
-          src={process.env.PUBLIC_URL + "/images/ben-mclean.png"}
-          alt="Ben McLean"
-        />
-      </div>
+      <H1>My Portfolio</H1>
+      <P>
+        Before graduating, I decided it would be a good plan to make a portfolio
+        of some open source projects I would like to work on. These projects
+        were meant to be:
+      </P>
+      <UL>
+        <ULI>Complete and Robust</ULI>
+        <ULI>Interesting</ULI>
+        <ULI>Relevant to Software Engineering</ULI>
+      </UL>
+      <P>
+        I realized that a good way to showcase these projects would be with a
+        nice Website, which itself would be an open source project. Thus, my
+        portfolio was born! So far it is just a static site being hosted on
+        Github pages, I have written it in React, implemented a CI/CD pipeline
+        with automated tests, and added a small game. I have plans to expand it
+        and add more projects to it as I feel inspiration. I want the projects
+        to be simple enough that a reader can figure out what they do in a few
+        minutes, but unique and complex enough that they show diversity and
+        depth of skill.
+      </P>
       <Divider />
 
       <H1>My Passions</H1>
@@ -79,12 +87,7 @@ export function Home() {
           </P>
           <UL>
             <ULI>
-              This Website, the goal is to create a nice, responsive website
-              with interesting projects. I think that responsiveness, and
-              snappiness are very important, and that is what I've optimized
-              for. This website is open sourced and deployed to GitHub Pages. It
-              is written in React, tested with Jest and React-Testing-Library.
-              You can view and clone the repository{" "}
+              This Website, whose source code you can clone{" "}
               <A
                 href="https://github.com/BenMcLean981/BenMcLean981.github.io"
                 target="_blank"
@@ -94,16 +97,7 @@ export function Home() {
               </A>
             </ULI>
             <ULI>
-              <A
-                href="https://ottawaavgroup.square.site/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                OAVG's Autonomous Snowplow
-              </A>{" "}
-              (shown here). I did a lot of the manufacturing and assembly work.
-              I also helped to document the electrical and mechanical design of
-              the robot.
+              Several work projects which I am unable to discuss in more detail.
             </ULI>
           </UL>
           <Divider />
@@ -120,13 +114,24 @@ export function Home() {
             </ULI>
             <ULI>
               My co-op project: Because of confidentiality issues, I'm unable to
-              disclose the full details of the project, but I've been working on
-              an ERP system for a machine my employer sells to fabricators. I
-              have a React app, a library that handles a lot of the mathematical
-              computation, a kubernetes cluster on Azure cloud for storage. And
-              a Javascript backend application for CRUD operations. I also
-              maintain a Flask application that uses SQLAlchemy on an SQLite
-              database to render templates for displaying reports.
+              disclose the full details of the project. I worked on a React app,
+              a computational geometry library written in TypeScript, and
+              kubernetes cluster on Azure cloud. I also maintain a Flask
+              application that uses SQLAlchemy on an SQLite database to render
+              templates for displaying reports.
+            </ULI>
+            <ULI>
+              <A
+                href="https://ottawaavgroup.square.site/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                OAVG's Autonomous Snowplow
+              </A>{" "}
+              (shown here). I mostly did some of the manufacturing and assembly
+              work. I also helped to document the electrical and mechanical
+              design of the robot. And I wrote some ROS code to simulate it when
+              Covid-19 forced the competition online.
             </ULI>
           </UL>
         </div>
@@ -141,10 +146,9 @@ export function Home() {
         <H1>Technologies</H1>
         <div>
           <P>
-            I think it's important for recruiters and hiring managers to see
-            what technologies I am comfortable with. I'd be interested in
-            learning anything, but these are the technologies I currently feel
-            competent with in order from most to least (more or less).
+            I'd be interested in learning anything, but these are the
+            technologies I currently feel competent with in order from most to
+            least (more or less).
           </P>
           <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 grid-cols-1">
             <div>
