@@ -3,33 +3,50 @@ import { MinesweeperGrid } from "./grid";
 import { MinesweeperTile } from "./tile";
 import React from "react";
 
-type GridAction =
-  | { type: "REVEAL"; tile: MinesweeperTile }
-  | { type: "FLAG"; tile: MinesweeperTile }
-  | { type: "RESET"; settings: GridSettings };
-
-type GridDispatch = (action: GridAction) => void;
-
-type GridContext = {
-  state: MinesweeperGrid;
-  dispatch: GridDispatch;
+type RevealAction = {
+  type: "REVEAL";
+  tile: MinesweeperTile;
 };
 
-export const minesweeperGridContext = React.createContext<
-  GridContext | undefined
->(undefined);
+type FlagAction = {
+  type: "FLAG";
+  tile: MinesweeperTile;
+};
+
+type ResetAction = {
+  type: "RESET";
+  settings: GridSettings;
+};
+
+type GridAction = RevealAction | FlagAction | ResetAction;
 
 export const gridReducer: React.Reducer<MinesweeperGrid, GridAction> = (
   grid,
   action
-) => {
+): MinesweeperGrid => {
   switch (action.type) {
     case "REVEAL":
-      if (grid.isMine(action.tile.position)) return grid.lose();
-      else return grid.reveal(action.tile.position);
-    case "FLAG":
+      return handleReveal(grid, action);
+    case "FLAG": {
       return grid.toggleFlag(action.tile.position);
-    case "RESET":
+    }
+    case "RESET": {
       return MinesweeperGrid.make(grid.size);
+    }
   }
 };
+
+function handleReveal(
+  grid: MinesweeperGrid,
+  action: RevealAction
+): MinesweeperGrid {
+  const pos = action.tile.position;
+  if (grid.isMine(pos) && !grid.isFlag(pos)) {
+    return grid.lose();
+  }
+  if (grid.isFlag(pos)) {
+    return grid; // don't reveal flagged tiles.
+  } else {
+    return grid.reveal(pos);
+  }
+}

@@ -137,6 +137,11 @@ export class MinesweeperGrid {
     return tile !== undefined && tile.flags.mined;
   }
 
+  isFlag(p: Position): boolean {
+    const tile = this.getTile(p);
+    return tile !== undefined && tile.flags.flagged;
+  }
+
   lose(): MinesweeperGrid {
     const losingGrid = this.revealAll();
     losingGrid.hasLost = true;

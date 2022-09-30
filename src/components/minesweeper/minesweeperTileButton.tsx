@@ -16,14 +16,21 @@ export function MinesweeperTileButton(props: TileProps) {
   }
 
   function getBackgroundClass(): string {
-    if (tile.flags.hidden) return "bg-slate-700";
-    else if (tile.flags.mined && !tile.flags.flagged) return "bg-red-600";
-    else return "bg-slate-500";
+    if (tile.flags.hidden) {
+      return "bg-slate-700";
+    } else if (tile.flags.mined && !tile.flags.flagged) {
+      return "bg-red-600";
+    } else {
+      return "bg-slate-500";
+    }
   }
 
   function getHoverClass(): string {
-    if (props.gameOver) return "";
-    else return "hover:bg-slate-500 ";
+    if (props.gameOver) {
+      return "";
+    } else {
+      return "hover:bg-slate-500 ";
+    }
   }
 
   function getTextColorClass(): string {
@@ -40,16 +47,20 @@ export function MinesweeperTileButton(props: TileProps) {
 
   function handleRightClick(e: React.MouseEvent) {
     e.preventDefault();
-    if (props.handleFlag !== undefined) props.handleFlag(tile);
+    if (props.handleFlag !== undefined) {
+      props.handleFlag(tile);
+    }
   }
 
   function handleLeftClick(e: React.MouseEvent) {
     e.preventDefault();
-    if (props.handleReveal !== undefined) props.handleReveal(tile);
+    if (props.handleReveal !== undefined) {
+      props.handleReveal(tile);
+    }
   }
 
   const baseClass =
-    "m-0 p-0 w-full aspect-square border border-neutral-500 rounded-sm font-mono text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-2xl ";
+    "m-0 p-0 w-full aspect-square border border-neutral-500 rounded-sm font-mono text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-2xl select-none";
 
   return (
     <button
