@@ -7,16 +7,12 @@ describe("useTimer.", () => {
     jest.useFakeTimers();
   });
 
-  afterEach(() => {
-    jest.useRealTimers();
-  });
-
   it("Runs a timer if enabled.", () => {
     const { result } = renderHook(() => useTimer());
     expect(result.current.seconds).toBe(0);
+    result.current.enable();
 
     act(() => {
-      result.current.enable();
       jest.advanceTimersByTime(1000);
     });
 
@@ -51,14 +47,10 @@ describe("useTimer.", () => {
     expect(result.current.seconds).toBe(0);
 
     expect(result.current.isEnabled).toBe(false);
-    act(() => {
-      result.current.enable();
-    });
+    result.current.enable();
 
     expect(result.current.isEnabled).toBe(true);
-    act(() => {
-      result.current.disable();
-    });
+    result.current.disable();
 
     expect(result.current.isEnabled).toBe(false);
   });
