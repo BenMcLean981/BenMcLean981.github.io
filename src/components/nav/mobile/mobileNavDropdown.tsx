@@ -9,7 +9,7 @@ export function MobileNavDropdown(props: Props) {
   return (
     <ul className="bg-gray-700">
       {props.routes.map((route) => (
-        <MobileNavLink route={route} />
+        <MobileNavLink route={route} key={route.name} />
       ))}
     </ul>
   );
