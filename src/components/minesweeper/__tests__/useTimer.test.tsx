@@ -2,11 +2,7 @@ import { renderHook } from "@testing-library/react-hooks";
 import { act } from "@testing-library/react";
 import { useTimer } from "../useTimer";
 
-/**
- * React18 broke these tests. Not sure why yet...
- */
-
-describe.skip("useTimer.", () => {
+describe("useTimer.", () => {
   beforeEach(() => {
     jest.useFakeTimers();
   });
@@ -114,6 +110,7 @@ describe.skip("useTimer.", () => {
       result.current.enable();
       jest.advanceTimersByTime(123456);
     });
+
     expect(result.current.format()).toBe("2:03.4");
   });
 });

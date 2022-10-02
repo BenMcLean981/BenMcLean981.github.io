@@ -3,6 +3,16 @@ import { render, screen } from "@testing-library/react";
 import { App } from "./App";
 import React from "react";
 
+let consoleErrorMock: jest.SpyInstance;
+
+beforeEach(() => {
+  consoleErrorMock = jest.spyOn(console, "error").mockImplementation();
+});
+
+afterEach(() => {
+  consoleErrorMock.mockRestore();
+});
+
 beforeEach(() => {
   Object.defineProperty(window, "matchMedia", {
     writable: true,

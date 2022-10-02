@@ -44,11 +44,7 @@ export function useTimer(): Timer {
       }
     }, 100);
 
-    console.log({ interval, enabled });
-
     return () => {
-      console.log("clear", { interval });
-
       clearInterval(interval);
     };
   }, [enabled]);
