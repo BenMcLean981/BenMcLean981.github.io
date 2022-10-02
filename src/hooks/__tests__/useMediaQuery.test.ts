@@ -13,9 +13,13 @@ beforeEach(() => {
   resized = false;
 
   function mediaHelper(query: string) {
-    if (resized && query === "afterResize") return true;
-    else if (query === "bar") return true;
-    else return false;
+    if (resized && query === "afterResize") {
+      return true;
+    } else if (query === "bar") {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Object.defineProperty(window, "matchMedia", {

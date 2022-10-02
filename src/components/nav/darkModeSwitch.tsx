@@ -1,7 +1,7 @@
 import { useDarkMode } from "../contexts/darkMode/useDarkMode";
 
 export function DarkModeSwitch() {
-  const [darkMode, dispatchDarkMode] = useDarkMode();
+  const { enabled: darkMode, toggle } = useDarkMode();
 
   // show sun or moon icon
   const darkModeLabel = darkMode ? "🌙" : "☀️";
@@ -10,7 +10,7 @@ export function DarkModeSwitch() {
     <div className="flex items-center gap-x-2">
       <button
         className="w-10 h-5 flex items-center bg-gray-400 rounded-full p-1 cursor-pointer"
-        onClick={() => dispatchDarkMode({ type: "TOGGLE" })}
+        onClick={toggle}
       >
         <div
           onClick={(e) => e.preventDefault()}
@@ -20,7 +20,7 @@ export function DarkModeSwitch() {
           }
         />
       </button>
-      <button onClick={() => dispatchDarkMode({ type: "TOGGLE" })}>
+      <button onClick={toggle}>
         <span>{darkModeLabel}</span>
       </button>
     </div>

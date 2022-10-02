@@ -13,8 +13,6 @@ import { useOutsideAlerter } from "../../hooks/useOutsideAlerter";
  * https://www.section.io/engineering-education/creating-a-responsive-navigation-bar-using-tailwind-css-and-javascript/
  *
  * I was learning tailwind while making this site so I referenced a blog
- *
- * @returns
  */
 
 export function NavBar() {

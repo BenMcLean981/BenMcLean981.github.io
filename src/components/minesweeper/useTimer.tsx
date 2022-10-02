@@ -30,17 +30,28 @@ export function useTimer(): Timer {
     const minutes = Math.floor(seconds / 60);
     const remSecs = seconds % 60;
 
-    if (minutes === 0) return remSecs.toFixed(1);
-    return `${minutes}:${remSecs.toFixed(1).padStart(4, "0")}`; //4 = tens, ones, dec, tenths
+    if (minutes === 0) {
+      return remSecs.toFixed(1);
+    } else {
+      return `${minutes}:${remSecs.toFixed(1).padStart(4, "0")}`; //4 = tens, ones, dec, tenths
+    }
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (enabled) setSeconds((s) => s + 0.1);
+      if (enabled) {
+        setSeconds((s) => s + 0.1);
+      }
     }, 100);
 
-    return () => clearInterval(interval);
-  }, [enabled, setSeconds]);
+    console.log({ interval, enabled });
+
+    return () => {
+      console.log("clear", { interval });
+
+      clearInterval(interval);
+    };
+  }, [enabled]);
 
   return {
     seconds,

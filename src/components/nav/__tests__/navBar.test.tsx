@@ -33,7 +33,7 @@ beforeEach(() => {
 });
 
 describe("navBar.", () => {
-  it("uses the button to change the state", () => {
+  it("uses the button to change the dropdown state", () => {
     render(
       <DarkModeProvider>
         <MemoryRouter>
