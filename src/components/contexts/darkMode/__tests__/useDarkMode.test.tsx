@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { DarkModeProvider } from "../darkModeProvider";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useDarkMode } from "../useDarkMode";
 
 beforeEach(() => {
@@ -21,20 +21,42 @@ beforeEach(() => {
 });
 
 describe("useDarkMode.", () => {
-  it("Throws an error for missing context.", () => {
-    const { result } = renderHook(() => useDarkMode());
+  const wrapper = ({ children }: { children: React.ReactElement }) => (
+    <DarkModeProvider>{children}</DarkModeProvider>
+  );
 
-    expect(result.error.message).toBe(
+  it("Throws an error for missing context.", () => {
+    expect(() => renderHook(() => useDarkMode())).toThrowError(
       "useDarkMode must be used within a DarkModeProvider"
     );
   });
 
   it("Does not throw an error when darmKode is present.", () => {
-    const wrapper = ({ children }: { children: React.ReactChild[] }) => (
-      <DarkModeProvider>{children}</DarkModeProvider>
-    );
+    expect(() => {
+      renderHook(() => useDarkMode(), { wrapper });
+    }).not.toThrowError();
+  });
+
+  it("Can change the dark-mode setting.", () => {
     const { result } = renderHook(() => useDarkMode(), { wrapper });
 
-    expect(result.error?.message).toBeUndefined();
+    const [state, dispatch] = result.current;
+
+    expect(state).toBe(false);
+
+    dispatch({ type: "ENABLE" });
+    expect(state).toBe(true);
+    dispatch({ type: "ENABLE" });
+    expect(state).toBe(true);
+
+    dispatch({ type: "DISABLE" });
+    expect(state).toBe(false);
+    dispatch({ type: "DISABLE" });
+    expect(state).toBe(false);
+
+    dispatch({ type: "TOGGLE" });
+    expect(state).toBe(true);
+    dispatch({ type: "TOGGLE" });
+    expect(state).toBe(false);
   });
 });
