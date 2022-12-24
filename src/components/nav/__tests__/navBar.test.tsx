@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 
 import { DarkModeProvider } from "../../contexts/darkMode/darkModeProvider";
 import { MemoryRouter } from "react-router";
@@ -46,9 +46,17 @@ describe("navBar.", () => {
     expect(button).not.toBeNull();
 
     expect(button).toHaveTextContent("closed");
-    button.click();
+
+    act(() => {
+      button.click();
+    });
+
     expect(button).toHaveTextContent("open");
-    button.click();
+
+    act(() => {
+      button.click();
+    });
+
     expect(button).toHaveTextContent("closed");
   });
 });
