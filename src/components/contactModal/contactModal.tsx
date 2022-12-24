@@ -5,9 +5,6 @@ import { Divider } from "../utils/divider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useOutsideAlerter } from "../../hooks/useOutsideAlerter";
 
-// This page was thrown together to get the website production ready quickly,
-// I will come back and fix it after my next deadline.
-
 export function ContactCard(props: PropsWithChildren<{}>) {
   const [open, setOpen] = useState(false);
 

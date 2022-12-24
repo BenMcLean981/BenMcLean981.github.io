@@ -41,8 +41,8 @@ export function Home() {
       <H1>My Portfolio</H1>
       <P>
         Before graduating, I decided it would be a good plan to make a portfolio
-        of some open source projects I would like to work on. These projects
-        were meant to be:
+        of some open source projects that I would like to work on. These
+        projects were meant to be:
       </P>
       <UL>
         <ULI>Complete and Robust</ULI>
