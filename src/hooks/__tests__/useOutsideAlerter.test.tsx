@@ -7,7 +7,7 @@ describe("useOutsideAlerter.test.tsx", () => {
   it("does not run the callback when not clicked away.", () => {
     const ref = React.createRef<HTMLDivElement>();
     const callback = jest.fn();
-    const wrapper = ({ children }: { children: React.ReactChildren }) => (
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
       <div ref={ref}>{children}</div>
     );
     const { result } = renderHook(() => useOutsideAlerter(ref, callback), {
@@ -25,7 +25,7 @@ describe("useOutsideAlerter.test.tsx", () => {
   it("runs callback when clicked away.", () => {
     const ref = React.createRef<HTMLDivElement>();
     const callback = jest.fn();
-    const wrapper = ({ children }: { children: React.ReactChildren }) => (
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
       <div>
         <div ref={ref}>{children}</div>
         <button />
