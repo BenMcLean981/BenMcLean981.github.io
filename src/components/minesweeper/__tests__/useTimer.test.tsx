@@ -1,5 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
-import { act } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useTimer } from "../useTimer";
 
 describe("useTimer.", () => {
@@ -10,7 +9,10 @@ describe("useTimer.", () => {
   it("Runs a timer if enabled.", () => {
     const { result } = renderHook(() => useTimer());
     expect(result.current.seconds).toBe(0);
-    result.current.enable();
+
+    act(() => {
+      result.current.enable();
+    });
 
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -25,6 +27,9 @@ describe("useTimer.", () => {
 
     act(() => {
       result.current.disable();
+    });
+
+    act(() => {
       jest.advanceTimersByTime(1000);
     });
 
@@ -47,10 +52,14 @@ describe("useTimer.", () => {
     expect(result.current.seconds).toBe(0);
 
     expect(result.current.isEnabled).toBe(false);
-    result.current.enable();
+    act(() => {
+      result.current.enable();
+    });
 
     expect(result.current.isEnabled).toBe(true);
-    result.current.disable();
+    act(() => {
+      result.current.disable();
+    });
 
     expect(result.current.isEnabled).toBe(false);
   });
@@ -61,13 +70,18 @@ describe("useTimer.", () => {
 
     act(() => {
       result.current.enable();
+    });
+
+    act(() => {
       jest.advanceTimersByTime(1000);
     });
+
     expect(result.current.seconds).toBeCloseTo(1, 8);
 
     act(() => {
       result.current.reset();
     });
+
     expect(result.current.seconds).toBe(0);
     expect(result.current.isEnabled).toBe(false);
   });
@@ -78,8 +92,12 @@ describe("useTimer.", () => {
 
     act(() => {
       result.current.enable();
+    });
+
+    act(() => {
       jest.advanceTimersByTime(1234);
     });
+
     expect(result.current.format()).toBe("1.2");
   });
 
@@ -89,8 +107,12 @@ describe("useTimer.", () => {
 
     act(() => {
       result.current.enable();
+    });
+
+    act(() => {
       jest.advanceTimersByTime(12345);
     });
+
     expect(result.current.format()).toBe("12.3");
   });
 
@@ -100,6 +122,9 @@ describe("useTimer.", () => {
 
     act(() => {
       result.current.enable();
+    });
+
+    act(() => {
       jest.advanceTimersByTime(123456);
     });
 
