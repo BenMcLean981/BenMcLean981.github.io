@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/react";
-import * as React from "react";
+import { render, screen, act } from "@testing-library/react";
 
 import { DarkModeProvider } from "../darkModeProvider";
 import { useDarkMode } from "../useDarkMode";
@@ -74,19 +73,40 @@ describe("useDarkMode.", () => {
 
     expect(dark).toHaveTextContent("true");
 
-    disable.click();
-    expect(dark).toHaveTextContent("false");
-    disable.click();
+    act(() => {
+      disable.click();
+    });
+
     expect(dark).toHaveTextContent("false");
 
-    enable.click();
-    expect(dark).toHaveTextContent("true");
-    enable.click();
+    act(() => {
+      disable.click();
+    });
+
+    expect(dark).toHaveTextContent("false");
+
+    act(() => {
+      enable.click();
+    });
+
     expect(dark).toHaveTextContent("true");
 
-    toggle.click();
+    act(() => {
+      enable.click();
+    });
+
+    expect(dark).toHaveTextContent("true");
+
+    act(() => {
+      toggle.click();
+    });
+
     expect(dark).toHaveTextContent("false");
-    toggle.click();
+
+    act(() => {
+      toggle.click();
+    });
+
     expect(dark).toHaveTextContent("true");
   });
 });
