@@ -1,8 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, renderHook } from "@testing-library/react";
 
 import { GameBanner } from "../gameBanner";
 import { MinesweeperGrid } from "../grid";
-import { renderHook } from "@testing-library/react-hooks";
 import { useTimer } from "../useTimer";
 
 jest.mock("../gameOverMessage", () => ({

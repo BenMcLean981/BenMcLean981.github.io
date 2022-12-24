@@ -1,6 +1,5 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
+import { fireEvent, renderHook } from "@testing-library/react";
 import { useOutsideAlerter } from "../../hooks/useOutsideAlerter";
 
 describe("useOutsideAlerter.test.tsx", () => {
