@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { render, screen } from "@testing-library/react";
+import { ReactElement } from "react";
+import { act, render, screen } from "@testing-library/react";
 
 import { DarkModeProvider } from "../../../components/contexts/darkMode/darkModeProvider";
 import { DarkModeSwitch } from "../darkModeSwitch";
@@ -43,11 +43,17 @@ describe("darkModeSwitch.", () => {
     expect(screen.getByText("🌙")).toBeInTheDocument();
 
     const buttons = screen.getAllByRole("button");
-    buttons[0].click();
+
+    act(() => {
+      buttons[0].click();
+    });
 
     expect(screen.getByText("☀️")).toBeInTheDocument();
 
-    buttons[1].click();
+    act(() => {
+      buttons[1].click();
+    });
+
     expect(screen.getByText("🌙")).toBeInTheDocument();
   });
 });
