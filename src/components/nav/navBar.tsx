@@ -30,7 +30,7 @@ export function NavBar() {
 
   const routes: NavRoute[] = [
     { name: "Minesweeper", path: "/minesweeper" },
-    { name: "Fluid Simulation", path: "/fluid-simulation" },
+    { name: "Advent of Code", path: "/advent-of-code" },
   ];
 
   return (

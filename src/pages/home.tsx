@@ -2,7 +2,7 @@ import { H1, H2 } from "../components/utils/headings";
 import { OL, OLI } from "../components/utils/orderedList";
 import { UL, ULI } from "../components/utils/unorderedList";
 
-import { A } from "../components/utils/link";
+import { Anchor } from "../components/utils/anchor";
 import { Divider } from "../components/utils/divider";
 import { Layout } from "../components/layout";
 import { P } from "../components/utils/paragraph";
@@ -88,13 +88,12 @@ export function Home() {
           <UL>
             <ULI>
               This Website, whose source code you can clone{" "}
-              <A
+              <Anchor
                 href="https://github.com/BenMcLean981/BenMcLean981.github.io"
-                target="_blank"
-                rel="noreferrer"
+                newWindow
               >
                 here!
-              </A>
+              </Anchor>
             </ULI>
             <ULI>
               Several work projects which I am unable to discuss in more detail.
@@ -121,13 +120,9 @@ export function Home() {
               templates for displaying reports.
             </ULI>
             <ULI>
-              <A
-                href="https://ottawaavgroup.square.site/"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <Anchor href="https://ottawaavgroup.square.site/" newWindow>
                 OAVG's Autonomous Snowplow
-              </A>{" "}
+              </Anchor>{" "}
               (shown here). I mostly did some of the manufacturing and assembly
               work. I also helped to document the electrical and mechanical
               design of the robot. And I wrote some ROS code to simulate it when
