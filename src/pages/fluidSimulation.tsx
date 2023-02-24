@@ -4,6 +4,9 @@ import { Divider } from "../components/utils/divider";
 import { Layout } from "../components/layout";
 import { P } from "../components/utils/paragraph";
 
+// I am working on this occasionally.
+// https://github.com/BenMcLean981/mclean-fluids
+// It has proven more difficult than I thought.
 export function FluidSimulation() {
   return (
     <Layout>
