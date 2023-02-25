@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useLongPress } from "../../hooks/useLongPress";
 import { TileProps } from "./tile";
 
 export function MinesweeperTileButton(props: TileProps) {
+  const ref = useRef<HTMLButtonElement | null>(null);
+
   const tile = props.tile;
 
   function getText(): string {
@@ -45,8 +48,8 @@ export function MinesweeperTileButton(props: TileProps) {
     else return "";
   }
 
-  function handleRightClick(e: React.MouseEvent) {
-    e.preventDefault();
+  function handleRightClick(e?: React.MouseEvent) {
+    e?.preventDefault();
     if (props.handleFlag !== undefined) {
       props.handleFlag(tile);
     }
@@ -59,11 +62,14 @@ export function MinesweeperTileButton(props: TileProps) {
     }
   }
 
+  useLongPress(ref, 0.5, handleRightClick);
+
   const baseClass =
     "m-0 p-0 w-full aspect-square border border-neutral-500 rounded-sm font-mono text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-2xl select-none";
 
   return (
     <button
+      ref={ref}
       className={`${baseClass} ${getBackgroundClass()} ${getTextColorClass()} ${getHoverClass()}`}
       onClick={handleLeftClick}
       onContextMenu={handleRightClick}
