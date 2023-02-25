@@ -31,7 +31,7 @@ export class MinesweeperGrid {
     return new MinesweeperGrid(rows, settings);
   }
 
-  generateMinePositions(seed?: number): Position[] {
+  private generateMinePositions(seed?: number): Position[] {
     const prng = new seedrandom(seed);
     const positions: Position[] = [];
 
@@ -58,7 +58,7 @@ export class MinesweeperGrid {
     return new MinesweeperGrid(minedRows, this.size);
   }
 
-  minePositions(positions: Position[]): MinesweeperGrid {
+  private minePositions(positions: Position[]): MinesweeperGrid {
     const minedRows: MinesweeperTile[][] = this.rows.map((row) =>
       row.map((tile) => {
         if (positions.some((p) => p.equals(tile.position))) return tile.mine();
@@ -89,7 +89,7 @@ export class MinesweeperGrid {
     return new MinesweeperGrid(numberedRows, this.size);
   }
 
-  setTile(tile: MinesweeperTile): MinesweeperGrid {
+  private setTile(tile: MinesweeperTile): MinesweeperGrid {
     const newRows = this.rows.map((row) =>
       row.map((t) => {
         if (t.position.equals(tile.position)) return tile;
@@ -197,5 +197,9 @@ export class MinesweeperGrid {
       row.map((tile) => tile.reveal())
     );
     return new MinesweeperGrid(revealedRows, this.size);
+  }
+
+  hasStarted(): boolean {
+    return this.rows.some((row) => row.some((tile) => !tile.flags.hidden));
   }
 }

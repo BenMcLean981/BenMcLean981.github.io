@@ -11,6 +11,7 @@ import { MinesweeperTileButton } from "../components/minesweeper/minesweeperTile
 import { P } from "../components/utils/paragraph";
 import { gridReducer } from "../components/minesweeper/gridReducer";
 import { useTimer } from "../components/minesweeper/useTimer";
+import { Anchor } from "../components/utils/anchor";
 
 const INTERMEDIATE_SETTINGS: GridSettings = {
   rows: 16,
@@ -60,10 +61,9 @@ export function Minesweeper() {
   );
 
   useEffect(() => {
-    const started = grid.rows.some((row) =>
-      row.some((tile) => !tile.flags.hidden)
-    );
+    const started = grid.hasStarted();
     const gameOver = grid.isGameOver();
+
     if (started && !gameOver) {
       timer.enable();
     }
@@ -75,8 +75,14 @@ export function Minesweeper() {
 
   function handleRestart(): void {
     dispatch({ type: "RESET", settings: INTERMEDIATE_SETTINGS });
+    timer.disable();
     timer.reset();
   }
+
+  /**
+   * TODO: Timer should stop on reset.
+   * TODO: Mine field should generate on first click so that bomb is not first click.
+   */
 
   return (
     <Layout>
@@ -86,14 +92,12 @@ export function Minesweeper() {
           I decided to make a game of minesweeper in typescript. I chose
           minesweeper because the rules are well known, and it should be a good
           way to demonstrate my front-end abilities. Check out the code{" "}
-          <a
-            className="underline text-blue-500"
+          <Anchor
             href="https://github.dev/BenMcLean981/BenMcLean981.github.io/blob/main/src/pages/minesweeper.tsx"
-            target="_blank"
-            rel="noreferrer"
+            newWindow
           >
             here!
-          </a>
+          </Anchor>
         </P>
         <Divider />
 
