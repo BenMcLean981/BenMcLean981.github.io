@@ -62,7 +62,7 @@ export function MinesweeperTileButton(props: TileProps) {
     }
   }
 
-  useLongPress(ref, 0.5, handleRightClick);
+  useLongPress(ref, 500, handleRightClick);
 
   const baseClass =
     "m-0 p-0 w-full aspect-square border border-neutral-500 rounded-sm font-mono text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-2xl select-none";

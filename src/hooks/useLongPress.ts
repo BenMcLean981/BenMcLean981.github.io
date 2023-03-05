@@ -12,7 +12,7 @@ export function useLongPress(
       const node = ref.current;
 
       const handleTouch = () => {
-        timeout.current = setTimeout(callback, time / 1000);
+        timeout.current = setTimeout(callback, time);
       };
 
       const handleRelease = () => {
@@ -22,16 +22,18 @@ export function useLongPress(
       };
 
       node?.addEventListener("onMouseDown", handleTouch);
-      node?.addEventListener("onTouchDown", handleTouch);
+      node?.addEventListener("onTouchStart", handleTouch);
       node?.addEventListener("onMouseUp", handleRelease);
-      node?.addEventListener("onTouchUp", handleRelease);
+      node?.addEventListener("onTouchEnd", handleRelease);
+      node?.addEventListener("onTouchCancel", handleRelease);
       node?.addEventListener("onMouseLeave", handleRelease);
 
       return () => {
         node?.removeEventListener("onMouseDown", handleTouch);
-        node?.removeEventListener("onTouchDown", handleTouch);
+        node?.removeEventListener("onTouchStart", handleTouch);
         node?.removeEventListener("onMouseUp", handleRelease);
-        node?.removeEventListener("onTouchUp", handleRelease);
+        node?.removeEventListener("onTouchEnd", handleRelease);
+        node?.removeEventListener("onTouchCancel", handleRelease);
         node?.removeEventListener("onMouseLeave", handleRelease);
       };
     }
