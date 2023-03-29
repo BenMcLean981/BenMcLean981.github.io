@@ -2,9 +2,9 @@
 
 Hi, my name is Ben McLean and this is the source code for my [portfolio website](http://BenMcLean981.github.io)!
 
-I'm a 4th year student at the University of Ottawa enrolled in a double degree program of Mechanical Engineering and Computing Technology. I hope to acquire a job as a software engineer/developer after graduation.
+I'm a software developer at Lincoln Electric. I graduated from the University of Ottawa in May 2023 with a B.A.Sc in Mechanical Engineering and a B.Sc in Computing Technology.
 
-The purpose of this project is to both tell and show some of my capabilities. You can read about me on my website, play games I wrote, and then read the source code to judge the quality of the work I've done.
+The purpose of this project is to both tell and show some of my capabilities. You can read about me on my website, play a game I wrote, and then read the source code to judge the quality of the work I've done.
 
 ## Tech Stack
 
