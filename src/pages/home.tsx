@@ -142,8 +142,8 @@ export function Home() {
         <div>
           <P>
             I'd be interested in learning anything, but these are the
-            technologies I currently feel competent with in order from most to
-            least (more or less).
+            technologies I currently feel competent with in. Languages have been
+            ordered from most to least competent.
           </P>
           <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 grid-cols-1">
             <div>
@@ -151,36 +151,42 @@ export function Home() {
               <OL>
                 <OLI>Typescript (Javascript)</OLI>
                 <OLI>Python</OLI>
+                <OLI>C#</OLI>
                 <OLI>Java</OLI>
-                <OLI>C++</OLI>
+                <OLI>Rust</OLI>
+                <OLI>C/C++</OLI>
               </OL>
             </div>
             <div>
               <H2>Libraries and Frameworks</H2>
-              <OL>
-                <OLI>NextJS (React)</OLI>
-                <OLI>Flask</OLI>
-                <OLI>SQLAlchemy</OLI>
-                <OLI>Express</OLI>
-              </OL>
+              <UL>
+                <ULI>NextJS (React)</ULI>
+                <ULI>Tailwind CSS</ULI>
+                <ULI>Flask</ULI>
+                <ULI>SQLAlchemy</ULI>
+                <ULI>Express</ULI>
+              </UL>
             </div>
             <div>
               <H2>Tools</H2>
-              <OL>
-                <OLI>VSCode</OLI>
-                <OLI>Git</OLI>
-                <OLI>Kubernetes and Docker</OLI>
-                <OLI>Azure (Cloud and Devops)</OLI>
-              </OL>
+              <UL>
+                <ULI>Git</ULI>
+                <ULI>VSCode</ULI>
+                <ULI>Visual Studio</ULI>
+                <ULI>IntelliJ IDEA</ULI>
+                <ULI>Kubernetes and Docker</ULI>
+                <ULI>Azure Devops (CI/CD)</ULI>
+                <ULI>Azure Cloud</ULI>
+              </UL>
             </div>
             <div>
               <H2>Other</H2>
-              <OL>
-                <OLI>Automated Testing (Jest)</OLI>
-                <OLI>GitHub</OLI>
-                <OLI>REST</OLI>
-                <OLI>SQL (MySQL and PostgreSQL)</OLI>
-              </OL>
+              <UL>
+                <ULI>Automated Testing (Jest)</ULI>
+                <ULI>GitHub</ULI>
+                <ULI>REST APIs</ULI>
+                <ULI>SQL (MySQL and PostgreSQL)</ULI>
+              </UL>
             </div>
           </div>
         </div>

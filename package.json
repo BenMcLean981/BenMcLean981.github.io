@@ -22,13 +22,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && echo 'ben-mclean-software.com' > ./build/CNAME",
     "test": "react-scripts test --all --watchAll",
     "test:coverage": "react-scripts test --all --watchAll=false --coverage || exit 0",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*'",
     "predeploy": "yarn build && yarn test:coverage && yarn check-images",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build ",
     "check-images": "if [ $(du -a public/images/* | sort -n -r | head -n 1 | cut -f1) -gt 200 ]; then exit 1; else exit 0; fi"
   },
   "eslintConfig": {

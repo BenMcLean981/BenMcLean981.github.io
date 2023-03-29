@@ -4,6 +4,7 @@ import React, { PropsWithChildren, useRef, useState } from "react";
 import { Divider } from "../utils/divider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useOutsideAlerter } from "../../hooks/useOutsideAlerter";
+import { Anchor } from "../utils/anchor";
 
 export function ContactCard(props: PropsWithChildren<{}>) {
   const [open, setOpen] = useState(false);
@@ -60,9 +61,9 @@ export function ContactCard(props: PropsWithChildren<{}>) {
             </H5>
             <H5>
               <strong>Email: </strong>
-              <a className="underline" href="mailto:bmcle071@uottawa.ca">
-                bmcle071@uottawa.ca
-              </a>
+              <Anchor href="mailto:BenMcLean981@gmail.com">
+                BenMcLean981@gmail.com
+              </Anchor>
             </H5>
           </div>
           <Divider />
