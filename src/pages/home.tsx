@@ -74,9 +74,10 @@ export function Home() {
       <UL>
         <ULI>Climate Change</ULI>
         <ULI>Space Exploration</ULI>
-        <ULI>Access to Education</ULI>
         <ULI>Sustainability</ULI>
         <ULI>Robotics and Automation</ULI>
+        <ULI>Access to Education</ULI>
+        <ULI>Code Quality</ULI>
       </UL>
       <Divider />
       <div className="flex flex-col lg:flex-row justify-between gap-8">
