@@ -1,6 +1,6 @@
-import { Layout } from "../components/layout";
-import { H1 } from "../components/utils/headings";
 import { Anchor } from "../components/utils/anchor";
+import { H1 } from "../components/utils/headings";
+import { Layout } from "../components/layout";
 import { P } from "../components/utils/paragraph";
 
 export function AdventOfCode() {
@@ -13,29 +13,12 @@ export function AdventOfCode() {
           online
         </Anchor>
         . It always gets a lot of attention on Twitter, Reddit, and Hackernews.
-        Last year I attempted it, but it was during exam season so I only got a
-        few days in. This year I made it 15 days in, which is actually in the{" "}
-        <Anchor newWindow href="https://adventofcode.com/2022/stats">
-          85th percentile
-        </Anchor>{" "}
-        as the days get progressively more difficult.
+        Last year I did Advent of Code in Rust and made it into the top 85% (day 15).
+        Due to an unfortunate accident I have lost this Rust code.
       </P>
       <br />
       <P>
-        This year I decided I wanted to learn the Rust programming language. So
-        I did Advent of Code in Rust (which probably didn't help my chances of
-        completing the challenge). I didn't write tests because of how new Rust
-        was to me, but regardless I've decided to include my solution to Advent
-        of Code 2022{" "}
-        <Anchor
-          newWindow
-          href="https://github.com/BenMcLean981/advent-of-code-2022"
-        >
-          here
-        </Anchor>
-        . Just know that this isn't indicative of how I write code in
-        environments I am comfortable in. But I hope it shows how I approach
-        complex competitive programming challenges.
+        I will be tracking my progress for 2023 <Anchor newWindow href="https://github.com/BenMcLean981/advent-of-code-2023">here</Anchor>.
       </P>
     </Layout>
   );
