@@ -11,7 +11,7 @@ function getAgeInYears() {
   const DATE_OF_BIRTH = new Date(1999, 2, 19);
   const today = new Date();
   const milliseconds = today.getTime() - DATE_OF_BIRTH.getTime();
-  const years = milliseconds / 1000 / 3600 / 24 / 365;
+  const years = milliseconds / 1000 / 3600 / 24 / 365.24225;
 
   return Math.floor(years);
 }
