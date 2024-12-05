@@ -23,6 +23,14 @@ export function AdventOfCode() {
       <H6>Years</H6>
       <li>
         <Anchor
+          href="https://github.com/BenMcLean981/advent-of-code-2024"
+          newWindow
+        >
+          2024
+        </Anchor>
+      </li>
+      <li>
+        <Anchor
           href="https://github.com/BenMcLean981/advent_of_code_2023"
           newWindow
         >
